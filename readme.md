@@ -17,7 +17,9 @@ This section links to various resources.
 
 - SAID [AS1163](https://ams-osram.com/news/blog/as1163-said-led-driver-connects-any-led-to-osp-automotive-lighting-network) product page (OSP node with 9 LED drivers) (todo:replace URL).
 
-- ams OSRAM [GitHub](https://github.com/ams-OSRAM-Group/) site, with the _aolibs_:
+- A [Getting started manual](gettingstarted.md) for the evaluation kit with the _aolibs_.
+- ams OSRAM [GitHub](https://github.com/ams-OSRAM-Group/) site, 
+  with the [aolibs](https://github.com/orgs/ams-OSRAM-Group/repositories?q=OSP_ao):
 
   - [aotop](https://github.com/ams-OSRAM-Group/OSP_aotop) with _Top level sketches_ ([Arduino log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM-Group/OSP_aotop/));
   - [aoapps](https://github.com/ams-OSRAM-Group/OSP_aoapps) with _Reusable apps_ ([Arduino log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM-Group/OSP_aoapps/));
