@@ -6,24 +6,43 @@ This suite implements support for chips that use the
 [Open System Protocol](https://ams-osram.com/technology/open-system-protocol), 
 like the AS1163 ("SAID") or the OSIRE E3731i ("RGBi").
 
-The _aolibs_ are typically used with the **Arduino OSP evaluation kit**.
-This kit consists of the _OSP32_ board with some OSP demo boards.
-The OSP32 board is a _Root MCU_ board, a board at the root 
-of an OSP chain that contains an MCU that controls the OSP chain.
 
-![OSP32 board](extras/OSP32.jpg)
+## Introduction
 
-The _OSP demo_ boards are typically strips with some RGBi's, some SAIDs,
-and/or some I2C devices. One example is the SAIDlooker board. 
-OSP demo boards are connected to a Root MCU board, and controlled 
-by the firmware running on the Root MCU.
+The _aolibs_ are typically used with the **Arduino OSP evaluation kit**,
+depicted below.
+
+![Arduino OSP evaluation kit](extras/evalkit.jpg)
+
+The kit consists of a _Root MCU board_, some OSP _demo boards_, and 
+some parts for "wiring" them up. The OSP demo boards are typically strips 
+with some RGBIs, some SAIDs, and/or some I2C devices. One example 
+is the _SAIDlooker_ board. 
 
 ![SAID looker](extras/saidlooker.jpg)
 
+OSP demo boards are connected to a Root MCU board. 
+A Root MCU board is a board at the root of an OSP chain.
+It contains an MCU that controls the OSP chain.
+The Root MCU board in the Arduino OSP evaluation kit is the _OSP32_ board.
 
-At the back of the OSP32 board is an _ESP32S3_. The _aolibs_ is a set of libraries 
-to create an OSP control firmware for the ESP32S3. The libraries are intended 
-to be used with the [_Arduino_](https://www.arduino.cc/) IDE.
+![OSP32 board](extras/OSP32.jpg)
+
+At the back of the OSP32 board is an _ESP32S3_ on a 
+standard development board known as "ESP32-S3-DevKitC-1" (black).
+
+![OSP32 board](extras/OSP32-back.jpg)
+
+
+The _aolibs_ are libraries to create an OSP control firmware for the 
+ESP32S3. The libraries are intended to be used with the 
+[_Arduino_](https://www.arduino.cc/) IDE.
+
+This document describes how to get started with the
+_aolibs_ in the Arduino IDE. It shows how to compile 
+an Arduino sketch, e.g. an example from one of the _aolibs_,
+upload it to the ESP32 in the OSP32 board, and see it
+drive LEDs on one of the demo boards.
 
 
 ## Prerequisites
@@ -78,7 +97,7 @@ on the OSP32 board with the _aolibs_.
    ![Arduino library manager](extras/librarymanager.png)
  
    As an (not recommended) alternative, get all the _aolibs_ manually, 
-   eg download them from [GitHub](https://github.com/ams-OSRAM/OSP_aotop),
+   e.g. download them from [GitHub](https://github.com/ams-OSRAM/OSP_aotop),
    and copy them into the Arduino `libraries` directory
    (for example, to `C:\Users\John\Documents\Arduino\libraries`).
  
@@ -91,7 +110,7 @@ on the OSP32 board with the _aolibs_.
    connect the connector labeled OUT with the connector labeled IN,
    both on the OSP32 board right-hand side edge.
    
-   Start Arduino IDE. Select an example sketch, eg try `aoosp_min.ino`. 
+   Start Arduino IDE. Select an example sketch, e.g. try `aoosp_min.ino`. 
    It is a minimalist example sketch that blinks the first LED connected to 
    the first SAID ("OUT") on the OSP32 board (using both BiDir and Loop mode).
    
@@ -109,7 +128,7 @@ on the OSP32 board with the _aolibs_.
 ## Maximalist example
 
 The biggest example in the _aolibs_ is the the full fledged demo 
-`aotop\examples\saidbasic`. It runs on the OSP32 board with SAIDbasic 
+`aotop\examples\saidbasic`. It runs on the OSP32 board with SAIDbasic 
 connected to it (either in Loop or in Bidir).
 
 The demo has several so-called "apps" integrated: running LED, 
@@ -131,11 +150,12 @@ Here the Arduino sketch composes byte-arrays to send commands.
 This level is good for getting insights in OSP, especially for 
 border cases like erroneous telegrams.
 
-There is also an example that is more _high-level_ `aomw_min`.
+There is also an example that is more _high-level_: `aomw_min`.
 This uses the topology builder from the middleware library. 
-It forms a topology map of all nodes of the OSP chain. Next, it set the color 
+It forms a topology map of all nodes of the OSP chain. Next, it sets the color 
 of RGB triplets. This abstracts away that a SAID has three RGB triplets 
-and an RGBI one, and that they need different telegrams for the same results.
+and an RGBI one, that they use different drive currents, and that 
+they need different telegrams for setting the LED PWM.
 
 Finally, the `aotop` library contains the demo `osplink`.
 This adds a commands interpreter to the firmware running on the ESP32.
@@ -147,7 +167,7 @@ controlling triplets.
 
 For example send the below OSP telegrams.
 The last command is sent to node 001 (SAID OUT), asking channel 01 
-(second triplet) to switch the red=3FFF, green=0000 and blue=7FFF.
+(second triplet) to switch to red=3FFF, green=0000 and blue=7FFF.
 The AA in the telegram is a dummy for padding.
 
 ```
@@ -254,7 +274,7 @@ There are several sources of documentation:
 
 - **API documentation**  
   In every _cpp_ file (not in the header file), 
-  the public functions have a doc section, e.g. 
+  the public functions have a javadoc section, e.g. 
 
   ```cpp
   /*!
@@ -381,7 +401,7 @@ Depending on your needs pick a subset from the following set.
 
 Every public symbol in any of the libraries is prefixed with a library
 specific "prefix", see table below. The table also lists the
-URL of the repository and the log of the registration of all repo 
+URL of the repositories and the log of the registration of all repo 
 releases at Arduino.
 
 

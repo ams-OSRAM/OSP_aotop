@@ -153,6 +153,11 @@ This library does not contain (reusable library) code, so there is no API.
 
 ## Version history _aotop_
 
+- **2024 October 8, 0.1.1**  
+  - Updated intro section of getting started (added pictures).
+  - Added `examples\training[123].ino`.
+  - Added `extras\manuals\ArduinoOSP-Training.pptx`.
+  
 - **2024 October 8, 0.1.0**  
   - Fixed name to `Open System Protocol (OSP) on Arduino` and `aolibs`.
   - Moved domain from `github.com/ams-OSRAM-Group` to `github.com/ams-OSRAM`.
