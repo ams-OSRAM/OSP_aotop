@@ -1,4 +1,4 @@
-# Getting started with aolibs
+# Getting started with Open System Protocol (OSP) on Arduino
 
 This document gives instructions to get started with the **aolibs**;
 short for Arduino OSP libraries from ams-OSRAM. 
@@ -6,17 +6,23 @@ This suite implements support for chips that use the
 [Open System Protocol](https://ams-osram.com/technology/open-system-protocol), 
 like the AS1163 ("SAID") or the OSIRE E3731i ("RGBi").
 
-With these libraries comes an evaluation kit.
-This kit consists of the **OSP32** board with some OSP demo boards.
+The _aolibs_ are typically used with the **Arduino OSP evaluation kit**.
+This kit consists of the _OSP32_ board with some OSP demo boards.
 The OSP32 board is a _Root MCU_ board, a board at the root 
 of an OSP chain that contains an MCU that controls the OSP chain.
+
+![OSP32 board](extras/OSP32.jpg)
+
 The _OSP demo_ boards are typically strips with some RGBi's, some SAIDs,
-and/or some I2C devices. One example is the SAIDbasic board. 
+and/or some I2C devices. One example is the SAIDlooker board. 
 OSP demo boards are connected to a Root MCU board, and controlled 
 by the firmware running on the Root MCU.
 
-The OSP32 board contains an _ESP32S3_. The _aolibs_ is a set of libraries 
-to create an OSP control firmware for the ESP32. The libraries are intended 
+![SAID looker](extras/saidlooker.jpg)
+
+
+At the back of the OSP32 board is an _ESP32S3_. The _aolibs_ is a set of libraries 
+to create an OSP control firmware for the ESP32S3. The libraries are intended 
 to be used with the [_Arduino_](https://www.arduino.cc/) IDE.
 
 
@@ -25,109 +31,268 @@ to be used with the [_Arduino_](https://www.arduino.cc/) IDE.
 The following items are needed to get started with software development
 on the OSP32 board with the _aolibs_.
 
-- Desktop/laptop - the developers of the _aolibs_ use Windows, but Linux or Mac should also work.
-- Internet connection and install rights.
+- Desktop/laptop with and install rights.  
+  The developers of the _aolibs_ use Windows, but Linux or Mac should also work.
+- Internet connection.
 - OSP32 board (but some simple examples also work with just an ESP32).
 - One ERNI Minibridge cable and/or a terminator.
-- Optional some OSP demo boards (e.g. SAIDbasic, SAIDlooker).
-- The latter three come in the SAID evaluation kit [link](todo:add).
+- Optional some OSP demo boards (e.g. SAIDlooker, SAIDbasic).
+- The latter three come in the _Arduino OSP evaluation kit_ [todo:add-link](link).
 
 
 ## Installation
 
-- [Download](https://www.arduino.cc/en/software) and install Arduino IDE.
+1. [Download](https://www.arduino.cc/en/software) and install Arduino IDE.
 
-- Use the BOARDS MANAGER to install the board "esp32 by **Espressif Systems**".
-  Do not confuse the Espressif board packages with the one from Arduino 
-  ("Arduino ESP32 Boards by **Arduino**").
-  
-  If the board is not listed, add `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
-  to "File > Preferences > Additional boards manager URLs"
+2. The ESP32S3 compiler (tools, runtime) needs to be installed in the Arduino IDE.
 
-  ![Example](extras/boardmanager.png)
+   Use the BOARDS MANAGER to search for "ESP32" and install the board 
+   "esp32 by **Espressif Systems**".
+   Do not confuse the Espressif board packages with the one from Arduino 
+   ("Arduino ESP32 Boards by **Arduino**").
+   
+   ![Arduino board manager](extras/boardmanager.png)
+ 
+   In the unlikely case that the board is not listed, add 
+   `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
+   to "File > Preferences > Additional boards manager URLs"
+ 
+3. The OSP32 boards use an _ESP32-S3-DevKitC-1_ with an USB to UART Bridge (CP2102N).
+   Plug a USB cable from the PC to the ESP32S3 USB connector labeled "CMD" and 
+   check the Windows device manager if the bridge is recognized.
+ 
+   ![Example](extras/vcom-driver.png)
+ 
+   Normally, the board manager also installs drivers for various bridges. 
+   If missing, download and install it from 
+   [Silabs](https://www.silabs.com/interface/usb-bridges/usbxpress/device.cp2102n-gqfn28).
+ 
+4. The _aolibs_ (OSP libraries) need to be installed in the Arduino IDE.
+   There are several libraries 
+   (`aoresult`, `aospi`, `aoosp`, `aocmd`, `aomw`, `aoui32`, `aoapps`, and `aotop`)
+   but `aotop` has all others as dependencies, so installing that one, installs all.
+   
+   Use the LIBRARY MANAGER to search for "OSP_ao" and install 
+   **OSP ToplevelSketches aotop** (latest version).
+   
+   ![Arduino library manager](extras/librarymanager.png)
+ 
+   As an (not recommended) alternative, get all the _aolibs_ manually, 
+   eg download them from [GitHub](https://github.com/ams-OSRAM/OSP_aotop),
+   and copy them into the Arduino `libraries` directory
+   (for example, to `C:\Users\John\Documents\Arduino\libraries`).
+ 
+5. Finally, we flash some firmware into the ESP32 that will send OSP
+   telegrams to blink an LED.
+   
+   Connect the OSP32 board to the PC: plug a USB cable
+   to the USB plug labeled "CMD" on the OSP32 PCB. 
+   With one of the ERNI cables supplied with the evaluation kit, 
+   connect the connector labeled OUT with the connector labeled IN,
+   both on the OSP32 board right-hand side edge.
+   
+   Start Arduino IDE. Select an example sketch, eg try `aoosp_min.ino`. 
+   It is a minimalist example sketch that blinks the first LED connected to 
+   the first SAID ("OUT") on the OSP32 board (using both BiDir and Loop mode).
+   
+   You can find the example in the Arduino IDE via "File > Examples > OSP Telegrams aoosp > aoosp_min".
+   Compile using "ESP32S3 Dev Module" and Upload, then check the Serial Monitor at 115200.
+   
+   ![Selecting example aoosp_min](extras/aoosp_min.png)
+ 
+   What you should see  is that the first RGB (L1.0) of SAID OUT (on the 
+   OSP32 board) blinks bright white and dim white. First in BiDir mode 
+   (so direction mux led is green) then in loop (led is orange).
+   Then repeats.
 
-- Probably the board install also installs the driver for the USB-to-UART bridge (CP2102N).
-  If not download and install it from [Silabs](https://www.silabs.com/interface/usb-bridges/usbxpress/device.cp2102n-gqfn28).
 
-- The _aolibs_ libraries need to be installed in the Arduino IDE.
-  (at the moment of writing this note the _aolibs_ are formed by
-  `aoresult`, `aospi`, `aoosp`, `aocmd`, `aomw`, `aoui32`, `aoapps`, and `aotop`)
-  
-  A typical Arduino setup has the libraries in `%USERPROFILE%\Documents\Arduino\libraries`,
-  for example `C:\Users\John\Documents\Arduino\libraries`. There are two ways 
-  to get the libraries there:
-  
-  - Search for the libraries in the Arduino Library Manager 
-    (use "ams OSRAM OSP") in the Arduino IDE and install them from there.
-    
-    Easiest way is to install the _aotop_ library, since it depends on all
-    others. Search for "OSP ToplevelSketches aotop" and it, and
-    all others, will be installed by the Arduino IDE.
-    
-    (todo: add screenshot)
+## Maximalist example
 
-  - Get all the _aolibs_  eg download from [GitHub](https://github.com/ams-OSRAM-Group/OSP_aotop),
-    and copy them into the Arduino `libraries` directory.
-    
-- Start Arduino IDE, connect the OSP32 board to the PC (plug the USB cable
-  to the USB plug labeled "uart" on the ESP32 PCB).
-  
-  Select an example sketch, eg try `aoosp-min.ino`. It is a minimalist example
-  sketch that blinks LEDs connected to the SAID on the OSP32 board.
-  
-  You can find the examples in the Arduino IDE via "File > Examples > ams-OSRAM OSP xxx > ..."
-  Compile using "ESP32S3 Dev Module" and Upload, then check the Serial Monitor at 115200.
-  
-  ![Example](extras/aoosp_min.png)
+The biggest example in the _aolibs_ is the the full fledged demo 
+`aotop\examples\saidbasic`. It runs on the OSP32 board with SAIDbasic 
+connected to it (either in Loop or in Bidir).
 
-  As a full fledged demo use `aotop\examples\saidbasic` on OSP32 with SAIDbasic connected.
+The demo has several so-called "apps" integrated: running LED, 
+scripted animation (script in EEPROM), country flags selected by 
+pressing a button, and showing the effect of dithering. 
+
+Use the A button to select app after app.
+There is a small [user manual](extras/manuals/saidbasic.pptx/).
 
 
-### Versions
+## Next examples
 
-In general, take the latest greatest of all components. If there are 
-problems, these are the versions the _aolib_ developers used and tested.
+In the Installation section the example `aoosp_min.ino` was run. 
+This example controls an OSP chain by sending command telegrams and 
+interpreting response telegrams. Most applications will be at this level.
 
-- Arduino IDE 2.3.2.
-- Board manager "esp32 by Espressif Systems" 3.0.2.
-- No external libraries are used
-- As PCB the OSP32 v9 and SAIDbasic v7.
+There is also an example that is more _low-level_: `aospi_tx`.
+Here the Arduino sketch composes byte-arrays to send commands.
+This level is good for getting insights in OSP, especially for 
+border cases like erroneous telegrams.
 
-In Arduino, we have File > Preferences > Compiler warnings > All to have the
-highest checking level during development. At the moment of writing this
-statement, a compile results in no errors or warnings.
+There is also an example that is more _high-level_ `aomw_min`.
+This uses the topology builder from the middleware library. 
+It forms a topology map of all nodes of the OSP chain. Next, it set the color 
+of RGB triplets. This abstracts away that a SAID has three RGB triplets 
+and an RGBI one, and that they need different telegrams for the same results.
+
+Finally, the `aotop` library contains the demo `osplink`.
+This adds a commands interpreter to the firmware running on the ESP32.
+When that is flashed, open the Serial Monitor at 115200 baud and give commands
+(suggested start is `help` and `help osp`). The command interpreter
+has commands for the same three levels. With `osp tx` raw bytes
+can be sent, with `osp send` telegrams can be send, and `topo` allows
+controlling triplets.
+
+For example send the below OSP telegrams.
+The last command is sent to node 001 (SAID OUT), asking channel 01 
+(second triplet) to switch the red=3FFF, green=0000 and blue=7FFF.
+The AA in the telegram is a dummy for padding.
+
+```
+>> osp send 000 reset
+tx A0 00 00 22
+rx none ok
+
+>> osp dirmux loop
+dirmux: loop
+
+>> osp send 001 initloop
+tx A0 04 03 86
+rx A0 09 03 00 50 63 ok
+
+>> osp send 000 clrerror
+tx A0 00 01 0D
+rx none ok
+
+>> osp send 000 goactive
+tx A0 00 05 B1
+rx none ok
+
+>> osp send 001 setpwmchn 01  AA  3f ff  00 00  7f ff
+tx A0 07 CF 01 AA 3F FF 00 00 7F FF FE
+rx none ok
+```
+
+The feedback from the above session shows what raw byte are sent. 
+We can hand compose those and use the low-level `tx` command (or `trx` when
+a response is expected such as for the second telegram).
+Note that in the last command we ask the command interpreter to compute
+the CRC for us.
+
+```
+>> osp tx A0 00 00 22
+tx A0 00 00 22
+rx none ok
+
+>> osp trx A0 04 03 86
+tx A0 04 03 86
+rx A0 09 03 00 50 63 ok
+
+>> osp tx A0 00 01 0D
+tx A0 00 01 0D
+rx none ok
+
+>> osp tx A0 00 05 B1
+tx A0 00 05 B1
+rx none ok
+
+>> osp tx A0 07 CF 01 AA 3F FF 00 00 7F FF crc
+tx A0 07 CF 01 AA 3F FF 00 00 7F FF FE
+rx none ok
+```
+
+And finally a session that uses topo, which achieves the same result.
+
+```
+>> topo build
+topo: nodes(N) 1..2, triplets(T) 0..4, i2cbridges(I) 0..0, dir loop
+
+>> topo pwm 1  3fff 0000 7fff
+pwm T1: 3FFF 0000 7FFF
+```
+
+There is an introduction about the command interpreter in its library
+[documentation](https://github.com/ams-OSRAM/OSP_aocmd?tab=readme-ov-file#example-commands).
 
 
 ## Documentation
 
-Every _aolib_ comes with documentation in the form of a `readme.md` 
-in its root directory, e.g. `arduinoosp\aolibs\aospi\readme.md`.
+There are several sources of documentation:
 
-The `readme.md` of _aospi_ deserves reading, especially the section 
-["System overview"](https://github.com/ams-OSRAM-Group/OSP_aospi/tree/main?tab=readme-ov-file#System-overview).
+- **Readme**  
+  Every _aolib_ comes with documentation in the form of a `readme.md` 
+  in its root directory, e.g. `arduinoosp\aolibs\aospi\readme.md`.
+  
+  These readme's give a quick intro to that library, presents all 
+  examples of the library, discusses the modules and their inter 
+  dependencies, and gives a high level overview of the API of the library.
+  There might be dedicates sections to explain for example the
+  execution, file or module architecture. The readme finishes with the 
+  version history.
 
-Every _aolib_ comes with examples, find them via 
-"File > Examples > ams-OSRAM OSP xxx > ...".
+  The `readme.md` of _aospi_ deserves reading, especially the section 
+  ["System overview"](https://github.com/ams-OSRAM/OSP_aospi/tree/main?tab=readme-ov-file#System-overview).
 
-Finally, in every cpp file (not in the header file), the public functions 
-have a doc section, e.g. 
+- **Examples**  
+  Every _aolib_ comes with examples, find them via 
+  "File > Examples > ams-OSRAM OSP xxx > ...".
+  
+  This ranges from simple software examples (how to assert, how to compute CRC),
+  using the communications layer (tx, rx, timing), trying OSP features
+  (error behavior, grouping/multicat, i2c, otp, sync, topology), demonstrating
+  the command interpreter (adding your own command), middleware features
+  (topology manager, I/O-expander driver, EEPROM driver, animation script),
+  using the OSP32 user interface elements (buttons, signaling LEDs, OLED),
+  reusable apps, and finally the "big" official top-level sketches 
+  (osplink, saidbasic).
 
-```cpp
-/*!
+- **Training slides**  
+  There are [slides](extras/training/OSP-SAID-Training.pptx) for a training 
+  on _aolibs_ with the _Arduino OSP evelaution kit_.
+
+- **API documentation**  
+  In every _cpp_ file (not in the header file), 
+  the public functions have a doc section, e.g. 
+
+  ```cpp
+  /*!
     @brief  Sends RESET and INIT telegrams, auto detecting BiDir or Loop.
     @param  last
-            Output parameter returning the address of 
+            Output parameter returning the address of
             the last node - that is the chain length.
     @param  loop
             Output parameter returning the communication direction:
-            1 iff Loop, 0 iff BiDir, -1 iff auto detect failed.
-    @return aoresult_ok if all ok, otherwise an error code.
-    #note   Controls the BiDir/Loop mux via aospi_set_dir_loop.
-*/
-aoresult_t aoosp_exec_resetinit(uint16_t *last, int *loop) {
- ...
-}
-```
+            1 iff Loop, 0 iff BiDir.
+    @return aoresult_ok          if all ok,
+            aoresult_sys_cabling if cable or terminator missing
+            or other error code
+    @note   Output parameters are undefined when an error is returned.
+    @note   `last` and `loop` maybe NULL (avoids caller to allocate variable).
+            Node that `last` is also available via aoosp_exec_resetinit_last(),
+            and loop is available via aospi_dirmux_is_loop().
+    @note   Controls the BiDir/Loop direction mux via aospi_dirmux_set_xxx.
+  */
+  aoresult_t aoosp_exec_resetinit(uint16_t *last, int *loop) {
+    ...
+  }
+  ```
+
+
+## Versions
+
+In general, take the latest greatest of all components. If there are 
+problems, these are the versions the _aolib_ developers used and tested.
+
+- Arduino IDE 2.3.3.
+- Board manager "esp32 by Espressif Systems" 3.0.5.
+- No external libraries are used
+- As PCB the OSP32 v10 and SAIDbasic v7.
+
+In Arduino, we have _File > Preferences > Compiler warnings > All_ to have the
+highest checking level during development. At the moment of writing this
+statement, a compile results in no errors or warnings.
 
 
 ## Which libraries to use
@@ -183,15 +348,14 @@ Depending on your needs pick a subset from the following set.
   making an abstraction of (an array of) RGB triplets irrespective if 
   they are an RGBI, or on a channel of a SAID.
   
-  The library also contains a driver for an I2C EEPROM and an I2C IO 
-  expander; both these devices are used as example I2C devices connected 
+  The library also contains a driver for an I2C EEPROM and an I2C 
+  I/O-expander; both these devices are used as example I2C devices connected 
   to a SAID with I2C gateway enabled.
   
-  The library also has a module to paint flags on an OSP chain, a driver for
-  an I/O expander (connected to a SAID I2C bridge), and an interpreter for
-  scripted animation instructions.
+  The library also has a module to paint flags on an OSP chain, and 
+  an interpreter for scripted animation instructions.
   
-  All these help making flexible demos, but are not expected in production
+  All these help in making flexible demos, but are not expected in production
   firmware.
 
 - `aoui32` 
@@ -216,18 +380,21 @@ Depending on your needs pick a subset from the following set.
 ## Library naming 
 
 Every public symbol in any of the libraries is prefixed with a library
-specific "prefix", see table below.
+specific "prefix", see table below. The table also lists the
+URL of the repository and the log of the registration of all repo 
+releases at Arduino.
 
- | Arduino library name         | Prefix       |  Repository
- |:-----------------------------|:------------:|:---------------------------------------------------------------:|
- | OSP ToplevelSketches aotop   | aotop        | [OSP_aotop](https://github.com/ams-OSRAM-Group/OSP_aotop)       |
- | OSP ReusableApps aoapps      | aoapps       | [OSP_aoapps](https://github.com/ams-OSRAM-Group/OSP_aoapps)     |
- | OSP UIDriversOSP32 aoui32    | aoui32       | [OSP_aoui32](https://github.com/ams-OSRAM-Group/OSP_aoui32)     |
- | OSP Middleware aomw          | aomw         | [OSP_aomw](https://github.com/ams-OSRAM-Group/OSP_aomw)         |
- | OSP CommandInterpreter aocmd | aocmd        | [OSP_aocmd](https://github.com/ams-OSRAM-Group/OSP_aocmd)       |
- | OSP Telegrams aoosp          | aoosp        | [OSP_aoosp](https://github.com/ams-OSRAM-Group/OSP_aoosp)       |
- | OSP 2wireSPI aospi           | aospi        | [OSP_aospi](https://github.com/ams-OSRAM-Group/OSP_aospi)       |
- | OSP ResultCodes aoresult     | aoresult     | [OSP_aoresult](https://github.com/ams-OSRAM-Group/OSP_aoresult) |
+
+ | Arduino library name         | Prefix       |  Repository                                               | Registration                                                                          |
+ |:-----------------------------|:------------:|:---------------------------------------------------------:|:-------------------------------------------------------------------------------------:|
+ | OSP ToplevelSketches aotop   | aotop        | [OSP_aotop](https://github.com/ams-OSRAM/OSP_aotop)       | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aotop/)    |
+ | OSP ReusableApps aoapps      | aoapps       | [OSP_aoapps](https://github.com/ams-OSRAM/OSP_aoapps)     | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aoapps/)   |
+ | OSP UIDriversOSP32 aoui32    | aoui32       | [OSP_aoui32](https://github.com/ams-OSRAM/OSP_aoui32)     | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aoui32/)   |
+ | OSP Middleware aomw          | aomw         | [OSP_aomw](https://github.com/ams-OSRAM/OSP_aomw)         | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aomw/)     |
+ | OSP CommandInterpreter aocmd | aocmd        | [OSP_aocmd](https://github.com/ams-OSRAM/OSP_aocmd)       | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aocmd/)    |
+ | OSP Telegrams aoosp          | aoosp        | [OSP_aoosp](https://github.com/ams-OSRAM/OSP_aoosp)       | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aoosp/)    |
+ | OSP 2wireSPI aospi           | aospi        | [OSP_aospi](https://github.com/ams-OSRAM/OSP_aospi)       | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aospi/)    |
+ | OSP ResultCodes aoresult     | aoresult     | [OSP_aoresult](https://github.com/ams-OSRAM/OSP_aoresult) | [log](https://downloads.arduino.cc/libraries/logs/github.com/ams-OSRAM/OSP_aoresult/) |
 
 The prefix is also used as an (informal) short name.
 
