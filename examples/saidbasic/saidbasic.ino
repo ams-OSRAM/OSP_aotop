@@ -24,6 +24,7 @@
 #include <aoui32.h>    // aoui32_oled_splash()
 #include <aomw.h>      // aomw_init()
 #include <aoapps.h>    // aoapps_mngr_start()
+#include <aotop.h>     // AOTOP_VERSION
 #include "saidbasic.h" // application info
 
 
@@ -86,20 +87,20 @@ void aocmd_version_app() {
 
 // Library aocmd "upcalls" via aocmd_version_extra() to allow the application to print the version of other ingredients
 void aocmd_version_extra() {
-  Serial.printf( "aolibs  : mw %s ui32 %s apps %s\n", AOMW_VERSION, AOUI32_VERSION, AOAPPS_VERSION);
+  Serial.printf( "aolibs  : mw %s ui32 %s apps %s top %s\n", AOMW_VERSION, AOUI32_VERSION, AOAPPS_VERSION, AOTOP_VERSION);
 }
 
 
 // Pick commands that we want in this application
 void cmds_register() {
-  aocmd_register();           // include all standard apps from aocmd
+  aocmd_register();           // include all standard commands from aocmd
   aomw_topo_cmd_register();   // include the topo command
-  aoapps_mngr_cmd_register(); // include the apps (mngr) command
+  aoapps_mngr_cmd_register(); // include the apps (manager) command
   Serial.printf("cmds: registered\n");
 }
 
 
-// Pick apps from the aoapps library that we want in this application
+// Pick apps that we want in this application
 void apps_register() {
   aoapps_aniscript_register();
   aoapps_runled_register();

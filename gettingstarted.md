@@ -4,7 +4,7 @@ This document gives instructions to get started with the **aolibs**;
 short for Arduino OSP libraries from ams-OSRAM. 
 This suite implements support for chips that use the
 [Open System Protocol](https://ams-osram.com/technology/open-system-protocol), 
-like the AS1163 ("SAID") or the OSIRE E3731i ("RGBi").
+like the AS1163 ("SAID") or the OSIRE E3731i ("RGBI").
 
 
 ## Introduction
@@ -91,7 +91,7 @@ on the OSP32 board with the _aolibs_.
    (`aoresult`, `aospi`, `aoosp`, `aocmd`, `aomw`, `aoui32`, `aoapps`, and `aotop`)
    but `aotop` has all others as dependencies, so installing that one, installs all.
    
-   Use the LIBRARY MANAGER to search for "OSP_ao" and install 
+   Use the LIBRARY MANAGER to search for "aotop" and install 
    **OSP ToplevelSketches aotop** (latest version).
    
    ![Arduino library manager](extras/librarymanager.png)
@@ -99,26 +99,38 @@ on the OSP32 board with the _aolibs_.
    As an (not recommended) alternative, get all the _aolibs_ manually, 
    e.g. download them from [GitHub](https://github.com/ams-OSRAM/OSP_aotop),
    and copy them into the Arduino `libraries` directory
-   (for example, to `C:\Users\John\Documents\Arduino\libraries`).
+   (e.g. to `C:\Users\John\Documents\Arduino\libraries\OSP_aotop`).
  
 5. Finally, we flash some firmware into the ESP32 that will send OSP
    telegrams to blink an LED.
    
    Connect the OSP32 board to the PC: plug a USB cable
-   to the USB plug labeled "CMD" on the OSP32 PCB. 
+   to the USB plug labeled **CMD** on the OSP32 PCB. 
    With one of the ERNI cables supplied with the evaluation kit, 
    connect the connector labeled OUT with the connector labeled IN,
    both on the OSP32 board right-hand side edge.
    
+   ![Board cabling](extras/aoosp_min.jpg)
+
    Start Arduino IDE. Select an example sketch, e.g. try `aoosp_min.ino`. 
    It is a minimalist example sketch that blinks the first LED connected to 
    the first SAID ("OUT") on the OSP32 board (using both BiDir and Loop mode).
-   
    You can find the example in the Arduino IDE via "File > Examples > OSP Telegrams aoosp > aoosp_min".
-   Compile using "ESP32S3 Dev Module" and Upload, then check the Serial Monitor at 115200.
    
    ![Selecting example aoosp_min](extras/aoosp_min.png)
+
+   Select the correct board (compiler) "ESP32S3 Dev Module" and correct 
+   Serial port (here COM7), then (compile and) Upload, either via the button 
+   bar (the "play" triangle) or via Sketch > Upload.
+   
+   ![Compile settings](extras/compilesetting.png)
+
+   Watch the serial output by opening the serial monitor, either via the
+   button bar (magnifying glass), or via Tools > Serial Monitor. 
+   Ensure the Serial Monitor baud rate is 115200.
  
+   ![Compile settings](extras/serial-monitor.png)
+   
    What you should see  is that the first RGB (L1.0) of SAID OUT (on the 
    OSP32 board) blinks bright white and dim white. First in BiDir mode 
    (so direction mux led is green) then in loop (led is orange).
@@ -136,7 +148,7 @@ scripted animation (script in EEPROM), country flags selected by
 pressing a button, and showing the effect of dithering. 
 
 Use the A button to select app after app.
-There is a small [user manual](extras/manuals/saidbasic.pptx/).
+There is a small [user manual](extras/manuals/saidbasic.pptx).
 
 
 ## Next examples
@@ -269,8 +281,8 @@ There are several sources of documentation:
   (osplink, saidbasic).
 
 - **Training slides**  
-  There are [slides](extras/training/OSP-SAID-Training.pptx) for a training 
-  on _aolibs_ with the _Arduino OSP evelaution kit_.
+  There are [slides](extras/manuals/ArduinoOSP-Training.pptx) for a training 
+  on _aolibs_ with the _Arduino OSP evaluation kit_.
 
 - **API documentation**  
   In every _cpp_ file (not in the header file), 
@@ -346,6 +358,10 @@ Depending on your needs pick a subset from the following set.
   (on top of `aospi`). The API has a function per telegram, with as 
   argument the address and the telegram parameters. The library does the 
   packing of byte buffers (and unpacking from byte buffers for responses).
+  
+  The library also contains some "macros": functions that send multiple 
+  telegrams implementing a higher level function like an I2C read 
+  transaction to an i2C device connected to a SAID.
   
   Any application for OSP is expected to use the libraries `aoosp` 
   on top of `aospi` on top of `aoresult`.

@@ -139,10 +139,12 @@ int              tscript_user_bytes() { return sizeof(tscript_user_); }
   #define DADDR7    AOMW_EEPROM_DADDR7_SAIDBASIC // I2C address EEPROM on SAIDbasic board (0x50)
 
 // SCRIPT is the (name of the function returning) an array of instructions
-// Due to macro magic, below lines cannot have comments. 
-// Suggested use for these scripts: rainbow on SAIDbasic EEPROM, 
-// bouncingblock on EEPROM stick 1, colormix on EEPROM stick 2, heartbeat 
-// reserved for defailt in aniscript, and tscript_user see top of this file.
+// Due to macro magic, below #define lines cannot have comments appended. 
+//   aomw_tscript_rainbow       is for SAIDbasic EEPROM
+//   aomw_tscript_bouncingblock is on EEPROM stick 1
+//   aomw_tscript_colormix      is on EEPROM stick 2
+//   aomw_tscript_heartbeat     is in the aniscript module (default when no EEPROM)
+//   tscript_user               is for own experiments (see top of this file)
   #define SCRIPT    aomw_tscript_rainbow
 //#define SCRIPT    aomw_tscript_bouncingblock
 //#define SCRIPT    aomw_tscript_colormix

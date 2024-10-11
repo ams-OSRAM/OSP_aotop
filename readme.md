@@ -28,8 +28,8 @@ software, which is partitioned over several libraries (the _aolibs_),
 each with its own GitHub repository. This document is part of one of those
 libraries (_aotop_). However, _aotop_ is not really a library, but rather a 
 container of top level demo applications (which use the real libraries),
-and a container of top-level documentation (like this readme). The diagram
-below shows an overview of all _aolibs_.
+and a container of top-level documentation (like this readme and training 
+material). The diagram below shows an overview of all _aolibs_.
 
 ![aolibs in context](extras/aolibs.drawio.png)
 
@@ -52,6 +52,8 @@ This section links to various resources.
 
 - Open System Protocol [website](https://ams-osram.com/technology/open-system-protocol).
 
+- Open System Protocol [application note](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf) (OSP specification). (todo:replace with v1.1)
+
 - OSP products
 
   - RGBi [E3731i](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31) product page (OSP node with built-in RGB LEDs).
@@ -60,6 +62,7 @@ This section links to various resources.
 
 - [Getting started manual](gettingstarted.md) for the 
   _aolibs_ with the _Arduino OSP evaluation kit_.
+  There are also [training slides](extras/manuals/ArduinoOSP-Training.pptx).
 
 - [Arduino OSP evaluation kit](todo) (todo:add URL). The kit contains:
 
@@ -113,7 +116,8 @@ It contains no (library) code; but it serves several other functions
   so installing _aotop_ via the Arduino IDE will install all other 
   libraries as well.
 - It is the "landing" place for the Open System Protocol software,
-  providing global documentation with links to all related resources.
+  providing global documentation (Getting Started, Training) with 
+  links to all related resources.
 
 ![aotop in context](extras/aolibs-aotop.drawio.png)
 
@@ -145,13 +149,24 @@ File > Examples > OSP ToplevelSketches aotop > ...
   OSPlink application. Please find it in 
   [`aocmd/python`](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/python).
 
+- **training** ([source](examples/training1), [source](examples/training2), [source](examples/training3))  
+  These are exercises for the [training](extras/manuals/ArduinoOSP-Training.pptx).
+
 
 ## API
 
 This library does not contain (reusable library) code, so there is no API.
+The only exception is the macro `AOTOP_VERSION`, which identifies the 
+version of this "library".
 
 
 ## Version history _aotop_
+
+- **2024 October 11, 0.1.2**  
+  - Made library version accessible in code (`AOTOP_VERSION`) and added to `saidbasic`.
+  - Improved _Installation_ of _Getting Started_ with new and more screenshots.
+  - Better comments in `eepromflasher.ino` and `saidbasic.ino`.
+  - Fixed links to training and OSP specification.
 
 - **2024 October 8, 0.1.1**  
   - Updated intro section of getting started (added pictures).
