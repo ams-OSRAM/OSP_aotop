@@ -23,7 +23,8 @@
 
 
 // Application version (and its history)
-#define SAIDBASIC_VERSION "2.5"
+#define SAIDBASIC_VERSION "2.6"
+// 20241017  2.6  Started app before command interpreter
 // 20241010  2.5  Added aotop version
 // 20240805  2.4  Added minimal documentation to top of ino
 // 20240702  2.3  Reorder libs in aocmd_version_extra()

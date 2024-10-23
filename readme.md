@@ -162,6 +162,10 @@ version of this "library".
 
 ## Version history _aotop_
 
+- **2024 October 23, 0.1.3**  
+  - In `saidbasic.ino` started app before command interpreter.
+  - Added debugging section in Getting Started.
+
 - **2024 October 11, 0.1.2**  
   - Made library version accessible in code (`AOTOP_VERSION`) and added to `saidbasic`.
   - Improved _Installation_ of _Getting Started_ with new and more screenshots.

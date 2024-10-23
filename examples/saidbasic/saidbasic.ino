@@ -133,13 +133,13 @@ void setup() {
   aoui32_oled_splash(SAIDBASIC_LONGNAME,SAIDBASIC_VERSION); 
   delay(1000);
 
+  // Start the first app
+  aoapps_mngr_start();
+
   // Start command interpreter
   aocmd_file_bootcmd_exec_on_por(); 
   Serial.printf( "Type 'help' for help\n" );
   aocmd_cint_prompt();
-
-  // Start the first app
-  aoapps_mngr_start();
 }
 
 

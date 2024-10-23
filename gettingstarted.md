@@ -61,9 +61,12 @@ on the OSP32 board with the _aolibs_.
 
 ## Installation
 
-1. [Download](https://www.arduino.cc/en/software) and install Arduino IDE.
+1. **Install Arduino IDE**  
+   From the Arduino website, [download](https://www.arduino.cc/en/software) 
+   and install Arduino IDE.
 
-2. The ESP32S3 compiler (tools, runtime) needs to be installed in the Arduino IDE.
+2. **Install "board" (compiler)**  
+   The ESP32S3 compiler (tools, runtime) needs to be installed in the Arduino IDE.
 
    Use the BOARDS MANAGER to search for "ESP32" and install the board 
    "esp32 by **Espressif Systems**".
@@ -76,8 +79,9 @@ on the OSP32 board with the _aolibs_.
    `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
    to "File > Preferences > Additional boards manager URLs"
  
-3. The OSP32 boards use an _ESP32-S3-DevKitC-1_ with an USB to UART Bridge (CP2102N).
-   Plug a USB cable from the PC to the ESP32S3 USB connector labeled "CMD" and 
+3. **Install driver for USB to UART bridge**  
+   The OSP32 boards use an _ESP32-S3-DevKitC-1_ with an USB to UART Bridge (CP2102N).
+   Plug a USB cable from the PC to the ESP32S3 USB connector labeled **CMD** and 
    check the Windows device manager if the bridge is recognized.
  
    ![Example](extras/vcom-driver.png)
@@ -86,7 +90,8 @@ on the OSP32 board with the _aolibs_.
    If missing, download and install it from 
    [Silabs](https://www.silabs.com/interface/usb-bridges/usbxpress/device.cp2102n-gqfn28).
  
-4. The _aolibs_ (OSP libraries) need to be installed in the Arduino IDE.
+4. **Install aolibs**  
+   The _aolibs_ (OSP libraries) need to be installed in the Arduino IDE.
    There are several libraries 
    (`aoresult`, `aospi`, `aoosp`, `aocmd`, `aomw`, `aoui32`, `aoapps`, and `aotop`)
    but `aotop` has all others as dependencies, so installing that one, installs all.
@@ -101,8 +106,9 @@ on the OSP32 board with the _aolibs_.
    and copy them into the Arduino `libraries` directory
    (e.g. to `C:\Users\John\Documents\Arduino\libraries\OSP_aotop`).
  
-5. Finally, we flash some firmware into the ESP32 that will send OSP
-   telegrams to blink an LED.
+5. **Flash an example**  
+   Finally, we flash some firmware into the ESP32 that will send OSP
+   telegrams to blink an RGB LED.
    
    Connect the OSP32 board to the PC: plug a USB cable
    to the USB plug labeled **CMD** on the OSP32 PCB. 
@@ -127,7 +133,7 @@ on the OSP32 board with the _aolibs_.
 
    Watch the serial output by opening the serial monitor, either via the
    button bar (magnifying glass), or via Tools > Serial Monitor. 
-   Ensure the Serial Monitor baud rate is 115200.
+   Ensure the Serial Monitor baud rate is set to 115200.
  
    ![Compile settings](extras/serial-monitor.png)
    
@@ -148,7 +154,8 @@ scripted animation (script in EEPROM), country flags selected by
 pressing a button, and showing the effect of dithering. 
 
 Use the A button to select app after app.
-There is a small [user manual](extras/manuals/saidbasic.pptx).
+There is a small [user manual](extras/manuals/saidbasic.pptx)
+available for the saidbasic demo.
 
 
 ## Next examples
@@ -434,5 +441,95 @@ releases at Arduino.
 
 The prefix is also used as an (informal) short name.
 
+
+## Debugging
+
+The Arduino IDE 2.x has an integrated debugger.
+The ESP32S3 on the OSP32 has an integrated USB JTAG probe.
+This means that, at least in theory, it suffices to connect
+the PC running Arduino IDE with a USB wire to the ESP to 
+have full debugging capabilities.
+
+Unfortunately, at the moment of writing this Getting Started, debugging ESP32 
+is [broken](https://forum.arduino.cc/t/arduino-ide-2-3-0-is-now-available/1221189) 
+in the IDE.
+
+> Due to the unusual implementation of the debugging configuration used by the "esp32" platform to overcome limitations of the initial system, debugging support is temporarily lost for ESP32-based boards in Arduino IDE 2.3.0.
+
+However, the nightly builds of the IDE do seem to work already.
+Here is how to try it.
+
+1. First connect the OSP32 board with **two** USB cables to the PC.
+   
+   ![OSP32 with two USB cables](extras/dbg-osp32.jpg)
+   
+   One is connected to CMD (UART), this is for Serial interaction.
+   The other is connected to DBG (USB), this is for debugging using JTAG.
+   
+   ![CMD and DBG over USB](extras/dbg-usb2x.jpg)
+   
+   Confirm, in Device manager, that there are two USB ports active.
+   
+   ![Device manager](extras/dbg-device-manager.png)
+   
+   We learn that (in the above example) COM7 is the CMD/UART/Serial connection,
+   and COM4 is the DBG connection.
+   
+2. Download the [nightly build](https://www.arduino.cc/en/software#:~:text=Release%20Notes-,Nightly%20Builds,-Download%20a%20preview).
+   For this document, we used Windows 2.3.3 nightly from 2024 10 15.
+   
+   Unzip it (for a simple test just in Downloads), then double click the IDE 
+   executable `..\arduino-ide_nightly-20241015_Windows_64bit\Arduino IDE.exe`.
+   
+   Confirm the IDE version
+   
+   ![IDE version](extras/dbg-ide-version.png)
+   
+3. Configure a project, e.g. open example `saidbasic.ino`.
+
+   Make sure to have selected `ESP32S3 Dev Module` and COM7 for Serial.
+   
+   We believe it is important to disable (in the `Tools` menu) all ESP32S3 
+   USB settings (CDC, DFU, MSC) except the TJAG adapter. 
+   Also note we have Upload Mode UART0, and USB Mode Hardware CDC and JTAG.
+   
+   ![Project USB settings](extras/dbg-usb-jtag.png)
+   
+   Although not necessary, it makes debugging easier since code is less 
+   optimized, it is suggested to enable Optimize for Debugging in the 
+   `Sketch` menu. 
+   
+   ![Optimize for Debugging](extras/dbg-cc-option.png)
+   
+4. Compile and Upload as usual. Start debugging by pressing the third button
+   in the button bar. Open the DEBUG pane via the side bar for the debugger 
+   console.
+   
+   The figure below shows the debugger running `saidbasic.ino`.
+   A break point is set in `aoosp_des_initloop()` the destructor (interpreter)
+   of the response telegram of initloop. We gave (via Serial) the commands
+   `app switch void` to disable the demo and `osp resetinit` to trigger a
+   call to initloop.
+   
+   ![Debugger in action](extras/dbg-ide-initloop.png)
+   
+   The VARIABLES section shows the received bytes: `size` is 6 and
+   `tele.data` contains A0 09 03 00 50 63.
+   We can pretty print that with `OSP_aospi\python\telegram`.
+   
+   ```
+   (env) C:\repos\SAID-appl\trunk\5-software\arduinoosp\OSP_aospi\python\telegram>run A0 09 03 00 50 63
+             +---------------+---------------+---------------+---------------+---------------+---------------+
+   byteval   |      A0       |      09       |      03       |      00       |      50       |      63       |
+   byteix    |0 0 0 0 0 0 0 0|1 1 1 1 1 1 1 1|2 2 2 2 2 2 2 2|3 3 3 3 3 3 3 3|4 4 4 4 4 4 4 4|5 5 5 5 5 5 5 5|
+   bitix     |7 6 5 4 3 2 1 0|7 6 5 4 3 2 1 0|7 6 5 4 3 2 1 0|7 6 5 4 3 2 1 0|7 6 5 4 3 2 1 0|7 6 5 4 3 2 1 0|
+   bitval    |1 0 1 0 0 0 0 0|0 0 0 0 1 0 0 1|0 0 0 0 0 0 1 1|0 0 0 0 0 0 0 0|0 1 0 1 0 0 0 0|0 1 1 0 0 0 1 1|
+             +-------+-------+-----------+---+-+-------------+-------------------------------+---------------+
+   field     |preambl|      address      | psi |   command   |            payload            |      crc      |
+   bin       | 1010  |    0000000010     | 010 |   0000011   |   00000000    :   01010000    |   01100011    |
+   hex       |  0xA  |       0x002       | 0x2 |    0x03     |     0x00      :     0x50      |   0x63 (ok)   |
+   meaning   |   -   |    unicast(2)     |  2  |  initloop   |       0       :      80       |    99 (ok)    |
+             +-------+-------------------+-----+-------------+-------------------------------+---------------+
+   ```
 
 (end)
