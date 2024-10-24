@@ -52,19 +52,21 @@ This section links to various resources.
 
 - Open System Protocol [website](https://ams-osram.com/technology/open-system-protocol).
 
-- Open System Protocol [application note](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf) (OSP specification). (todo:replace with v1.1)
+- Open System Protocol application note [OSP specification 1.0](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf).
+ (todo:add/replace with v1.1)
 
 - OSP products
 
   - RGBi [E3731i](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31) product page (OSP node with built-in RGB LEDs).
-  - SAID [AS1163](https://ams-osram.com/news/blog/as1163-said-led-driver-connects-any-led-to-osp-automotive-lighting-network) product page (OSP node with 9 LED drivers) (todo:replace URL).
-  - (todo: add SAID2)
+  - SAID [AS1163](https://ams-osram.com/products/drivers/led-drivers/ams-as1163-automotive-9-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with 9 LED drivers).
+  - SAID [AS1163](https://ams-osram.com/products/drivers/led-drivers/ams-as1163b-automotive-6-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with 6 LED drivers).
 
 - [Getting started manual](gettingstarted.md) for the 
   _aolibs_ with the _Arduino OSP evaluation kit_.
   There are also [training slides](extras/manuals/ArduinoOSP-Training.pptx).
 
-- [Arduino OSP evaluation kit](todo) (todo:add URL). The kit contains:
+- [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit). 
+  The kit contains:
 
   - 1× OPS32 ([schematics](extras/schematics/OSP32_complete_v9.pdf));
   - 1× SAIDbasic ([schematics](extras/schematics/SAIDbasic_complete_v7.1.pdf));
@@ -161,6 +163,10 @@ version of this "library".
 
 
 ## Version history _aotop_
+
+- **2024 October 24, 0.1.4**  
+  - Added URLs for SAID, SAIDB and Arduino OSP evaluation kit.
+  - Getting Started, section Debugging, explains the USB ports in more detail.
 
 - **2024 October 23, 0.1.3**  
   - In `saidbasic.ino` started app before command interpreter.

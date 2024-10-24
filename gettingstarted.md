@@ -447,14 +447,16 @@ The prefix is also used as an (informal) short name.
 The Arduino IDE 2.x has an integrated debugger.
 The ESP32S3 on the OSP32 has an integrated USB JTAG probe.
 This means that, at least in theory, it suffices to connect
-the PC running Arduino IDE with a USB wire to the ESP to 
+the PC running Arduino IDE with a USB cable to the ESP to 
 have full debugging capabilities.
 
 Unfortunately, at the moment of writing this Getting Started, debugging ESP32 
 is [broken](https://forum.arduino.cc/t/arduino-ide-2-3-0-is-now-available/1221189) 
 in the IDE.
 
-> Due to the unusual implementation of the debugging configuration used by the "esp32" platform to overcome limitations of the initial system, debugging support is temporarily lost for ESP32-based boards in Arduino IDE 2.3.0.
+> Due to the unusual implementation of the debugging configuration used by the 
+> "esp32" platform to overcome limitations of the initial system, debugging 
+> support is temporarily lost for ESP32-based boards in Arduino IDE 2.3.0.
 
 However, the nightly builds of the IDE do seem to work already.
 Here is how to try it.
@@ -463,8 +465,9 @@ Here is how to try it.
    
    ![OSP32 with two USB cables](extras/dbg-osp32.jpg)
    
-   One is connected to CMD (UART), this is for Serial interaction.
-   The other is connected to DBG (USB), this is for debugging using JTAG.
+   One is connected to **CMD** (UART), this is for Serial interaction 
+   (and upload). The other is connected to **DBG** (USB), this is for 
+   debugging using JTAG.
    
    ![CMD and DBG over USB](extras/dbg-usb2x.jpg)
    
@@ -472,8 +475,18 @@ Here is how to try it.
    
    ![Device manager](extras/dbg-device-manager.png)
    
-   We learn that (in the above example) COM7 is the CMD/UART/Serial connection,
-   and COM4 is the DBG connection.
+   The screenshot shows COM7 is the Serial connection (USB to UART bridge).
+   This is associated to the USB cable plugged into the connector
+   labeled **CMD**; it is a "singleton" device. The USB cable plugged 
+   into **DBG** is actually a USB composite device. It surfaces as 
+   a serial device COM4, but also as `USB JTAG/Serial debug unit`.
+   
+   [Some](https://youtu.be/HGB9PI3IDL0?si=t4-Lz4m5WLVTHXuL&t=978) claim to 
+   need the tool [Zadig](https://zadig.akeo.ie) to use the **DBG** port. Zadig 
+   replaces USB drivers so that "USB JTAG/serial debug uint (Interface 0)" is 
+   mapped to driver "USB Serial (CDC) - usbser" and 
+   "USB JTAG/serial debug uint (Interface 2)" is mapped to "WinUSB". 
+   We did not use Zadig.
    
 2. Download the [nightly build](https://www.arduino.cc/en/software#:~:text=Release%20Notes-,Nightly%20Builds,-Download%20a%20preview).
    For this document, we used Windows 2.3.3 nightly from 2024 10 15.
