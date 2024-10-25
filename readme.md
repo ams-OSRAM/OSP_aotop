@@ -1,9 +1,9 @@
 ![OSP](extras/osp.jpg)
 # Open System Protocol (OSP) on Arduino
 
-Welcome to the landing page of the 
-**aolibs** (short for Arduino OSP libraries from ams-OSRAM) to be used 
-with the **Arduino OSP evaluation kit**.
+Welcome to the landing page of the **aolibs** 
+(short for Arduino OSP libraries from ams-OSRAM) 
+to be used with the **Arduino OSP evaluation kit**.
 
 
 ## Introduction
@@ -53,7 +53,7 @@ This section links to various resources.
 - Open System Protocol [website](https://ams-osram.com/technology/open-system-protocol).
 
 - Open System Protocol application note [OSP specification 1.0](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf).
- (todo:add/replace with v1.1)
+ (todo:add with v1.1)
 
 - OSP products
 
@@ -89,7 +89,7 @@ This section links to various resources.
   - [aospi](https://github.com/ams-OSRAM/OSP_aospi) library with _2-wire SPI_;
   - [aoresult](https://github.com/ams-OSRAM/OSP_aoresult) library with _Result codes_.
 
-  
+
 (end of top-level documentation)
 
 -----------------------------------------------------------------------------
@@ -111,9 +111,10 @@ The landing page for the _aolibs_ is on
 ## Introduction
 
 Library _aotop_ is at the top of the dependency graph.
-It contains no (library) code; but it serves several other functions
+It contains no (library) code; but it serves several other functions.
 - It contains top-level sketches for advanced demos 
   (using the Arduino IDE examples mechanism).
+  See next section for an overview.
 - It is made dependent on all Open System Protocol libraries (aolibs),
   so installing _aotop_ via the Arduino IDE will install all other 
   libraries as well.
@@ -144,10 +145,9 @@ File > Examples > OSP ToplevelSketches aotop > ...
   allows writing any script (stock or user developed) to any of these EEPROMs.
 
 - **osplink** ([source](examples/osplink))  
-  This application allows the PC (with a terminal like the Arduino Serial Monitor)
-  to send and receive OSP telegrams, using serial-over-USB.
-  
-  There is an experimental Python app for PC, that sends commands to the 
+  This application allows the PC (with a terminal like the Arduino Serial 
+  Monitor) to send and receive OSP telegrams, using serial-over-USB. 
+  There is also an experimental Python app for PC, that sends commands to the 
   OSPlink application. Please find it in 
   [`aocmd/python`](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/python).
 
@@ -164,6 +164,10 @@ version of this "library".
 
 ## Version history _aotop_
 
+- **2024 October 25, 0.1.5**  
+  - Replaced OSP system picture with one having also a SAID with I2C.
+  - Improved labels of links.
+  
 - **2024 October 24, 0.1.4**  
   - Added URLs for SAID, SAIDB and Arduino OSP evaluation kit.
   - Getting Started, section Debugging, explains the USB ports in more detail.
