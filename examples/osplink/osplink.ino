@@ -23,6 +23,7 @@
 #include <aocmd.h>    // aocmd_cint_pollserial()
 #include <aomw.h>     // aomw_topo_cmd_register()
 #include <aoui32.h>   // aoui32_oled_splash()
+#include <aotop.h>    // AOTOP_VERSSION
 #include "osplink.h"  // application info
 
 /*
@@ -70,6 +71,12 @@ Alternatively, use higher level commands (topo)
 // Library aocmd "upcalls" via aocmd_version_app() to allow the application to print its version.
 void aocmd_version_app() {
   Serial.printf("%s %s\n", OSPLINK_LONGNAME, OSPLINK_VERSION );
+}
+
+
+// Library aocmd "upcalls" via aocmd_version_extra() to allow the application to print the version of other ingredients
+void aocmd_version_extra() {
+  Serial.printf( "aolibs  : mw %s ui32 %s top %s\n", AOMW_VERSION, AOUI32_VERSION, AOTOP_VERSION);
 }
 
 

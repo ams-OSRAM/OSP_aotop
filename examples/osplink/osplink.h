@@ -23,7 +23,8 @@
 
 
 // Application version (and its history)
-#define OSPLINK_VERSION "1.7"
+#define OSPLINK_VERSION "1.8"
+// 20240628  1.8  Version command now inlcudes aomw and aoui32 version.
 // 20240628  1.7  Added topo command (aomw)
 // 20240522  1.6  Fixed bug in aocmd_file_bootcmd_exec_on_por() 
 // 20240517  1.5  Added python lib

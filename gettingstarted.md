@@ -56,7 +56,8 @@ on the OSP32 board with the _aolibs_.
 - OSP32 board (but some simple examples also work with just an ESP32).
 - One ERNI Minibridge cable and/or a terminator.
 - Optional some OSP demo boards (e.g. SAIDlooker, SAIDbasic).
-- The latter three come in the _Arduino OSP evaluation kit_ [todo:add-link](link).
+- The latter three come in the 
+  [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit)
 
 
 ## Installation

@@ -11,25 +11,26 @@ to be used with the **Arduino OSP evaluation kit**.
 OSP or Open System Protocol was developed by ams OSRAM for dynamic lighting,
 for example in car interiors. OSP is open for everybody and free of license. 
 
-An OSP based system consist of an MCU (the "RootMCU") connected to a series 
-of (up to 1000) daisy chained OSP nodes. OSP nodes contain or drive RGB 
+An OSP based system consist of an MCU (the "Root MCU") connected to a series 
+of (up to 1000) daisy chained OSP nodes. OSP nodes contain or drive (RGB) LED 
 modules, or implement gateways to other protocols like I2C. The SAID or
-Stand Alone Intelligent Driver, officially known as AS1163 is an example of
-an OSP node withe external LEDs and integrated I2C bridge. The E3731i
-or Intelligent RGB (RGBI) is an example of an OSP node with integrated red, 
+Stand Alone Intelligent Driver, officially known as AS1163, is an example of
+an OSP node with external LEDs and an integrated I2C bridge. The E3731i
+or Intelligent RGB (RGBI) is an example of an OSP node with an integrated red, 
 green and blue LED.
 
 ![OSP chain](extras/ospchain.jpg)
 
 
-ams OSRAM sells an evaluation kit demonstrating OSP. This kit is known as 
+ams OSRAM supplies an evaluation kit demonstrating OSP. This kit is known as 
 the _Arduino OSP evaluation kit_. With this evaluation kit comes 
-software, which is partitioned over several libraries (the _aolibs_), 
-each with its own GitHub repository. This document is part of one of those
-libraries (_aotop_). However, _aotop_ is not really a library, but rather a 
-container of top level demo applications (which use the real libraries),
-and a container of top-level documentation (like this readme and training 
-material). The diagram below shows an overview of all _aolibs_.
+software, which is partitioned over several libraries, the _aolibs_. 
+Each library is stored in its own GitHub repository.
+This document is part of one of those repositories/libraries known as _aotop_. 
+However, _aotop_ is not really a library (with reusable code), but rather a 
+container for top level demo applications (which use the real libraries), and 
+a container for top-level documentation (like this readme and for example 
+training material). The diagram below shows an overview of all _aolibs_.
 
 ![aolibs in context](extras/aolibs.drawio.png)
 
@@ -68,14 +69,14 @@ This section links to various resources.
 - [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit). 
   The kit contains:
 
-  - 1× OPS32 ([schematics](extras/schematics/OSP32_complete_v9.pdf));
-  - 1× SAIDbasic ([schematics](extras/schematics/SAIDbasic_complete_v7.1.pdf));
-  - 1× SAIDlooker ([schematics](extras/schematics/SAIDLooker_complete_v3.1.pdf));
-  - 1× RGBIstrip (todo:add URL);
+  - 1× OPS32 ([schematics](extras/schematics/OSP32_complete_v10.pdf)): root MCU board with an ESP32 (flashed with the [saidbasic](examples/saidbasic) demo), two SAIDs, and an I2C EEPROM (not flashed);
+  - 1× SAIDlooker ([schematics](extras/schematics/SAIDLooker_complete_v3.1.pdf)): demo board with 3 SAIDs;
+  - 1× RGBIstrip ([schematics](extras/schematics/OSIRE_E3731i_V2.3.pdf)): demo board with 20 RGBIs;
+  - 1× SAIDbasic ([schematics](extras/schematics/SAIDbasic_complete_v7.1.pdf)): demo board with 3 SAID and 4 RGBIs, I/O-expander and I2C EEPROM flashed with [rainbow](examples/eepromflasher) script;
   - 2× terminator ([schematics](extras/schematics/Terminator_complete_v1.2.pdf));
   - 2× CAN adapter ([schematics](extras/schematics/CANadapter_complete_v3.2.pdf));
-  - 2× EEPROM stick ([schematics](extras/schematics/I2CEEPROMstick-schematics_v1.0.pdf));
-  - 3× ERNI cable ([supplier](https://www.distrelec.nl/en/ribbon-cable-27mm-cores-200mm-black-erni-839017/p/14362654)).
+  - 2× EEPROM stick ([schematics](extras/schematics/I2CEEPROMstick-schematics_v1.0.pdf)): EEPROMs flashed with respectively the [bounceblock](examples/eepromflasher) and [colormix](examples/eepromflasher) script;
+  - 4× ERNI cable ([supplier](https://www.distrelec.nl/en/ribbon-cable-27mm-cores-200mm-black-erni-839017/p/14362654)).
   
 - The [aolibs](https://github.com/orgs/ams-OSRAM/repositories?q=OSP_ao)
   (on the ams OSRAM GitHub [site](https://github.com/ams-OSRAM/)): 
@@ -139,10 +140,12 @@ File > Examples > OSP ToplevelSketches aotop > ...
   (A,X and Y) button on the OSP32 board.
 
 - **eepromflasher** ([source](examples/eepromflasher))  
-  One of the features of the SAIDbasic application is to play (LED animation)
+  One of the features of the `saidbasic` application is to play (LED animation)
   scripts from an EEPROM. There are EEPROMs on the OSP32 board, the SAIDbasic
   board, and on stand-alone I2C EEPROM sticks. The eepromflasher application
   allows writing any script (stock or user developed) to any of these EEPROMs.
+  The stock scripts are `rainbow`, `bouncingblock`, `colormix`, and `heartbeat`.
+
 
 - **osplink** ([source](examples/osplink))  
   This application allows the PC (with a terminal like the Arduino Serial 
@@ -158,12 +161,22 @@ File > Examples > OSP ToplevelSketches aotop > ...
 ## API
 
 This library does not contain (reusable library) code, so there is no API.
-The only exception is the macro `AOTOP_VERSION`, which identifies the 
-version of this "library".
+
+The only exception is the macro `AOTOP_VERSION` (in `aotop.h`), 
+which identifies the version of this "library".
 
 
 ## Version history _aotop_
 
+- **2024 November 8, 0.1.6**  
+  - New image for evaluation kit; link added.
+  - Added schematic for RGBI strip `OSIRE_E3731i_V2.3.pdf`.
+  - OSP system picture now has two I2C devices.
+  - Replaced OSP32 schematics v9 by v10.
+  - Now 4 cables in EVK.
+  - Updates to `readme.md`.
+  - osplink 1.8 now prints all library versions.
+  
 - **2024 October 25, 0.1.5**  
   - Replaced OSP system picture with one having also a SAID with I2C.
   - Improved labels of links.
