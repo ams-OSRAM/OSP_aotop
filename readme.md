@@ -69,7 +69,7 @@ This section links to various resources.
 - [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit). 
   The kit contains:
 
-  - 1× OPS32 ([schematics](extras/schematics/OSP32_complete_v10.pdf)): root MCU board with an ESP32 (flashed with the [saidbasic](examples/saidbasic) demo), two SAIDs, and an I2C EEPROM (not flashed);
+  - 1× OSP32 ([schematics](extras/schematics/OSP32_complete_v10.pdf)): root MCU board with an ESP32 (flashed with the [saidbasic](examples/saidbasic) demo), two SAIDs, and an I2C EEPROM (not flashed);
   - 1× SAIDlooker ([schematics](extras/schematics/SAIDLooker_complete_v3.1.pdf)): demo board with 3 SAIDs;
   - 1× RGBIstrip ([schematics](extras/schematics/OSIRE_E3731i_V2.3.pdf)): demo board with 20 RGBIs;
   - 1× SAIDbasic ([schematics](extras/schematics/SAIDbasic_complete_v7.1.pdf)): demo board with 3 SAID and 4 RGBIs, I/O-expander and I2C EEPROM flashed with [rainbow](examples/eepromflasher) script;
@@ -135,24 +135,27 @@ File > Examples > OSP ToplevelSketches aotop > ...
 
 
 - **saidbasic** ([source](examples/saidbasic))  
-  This application assumes a SAIDbasic board is connected to the OSP32 board.
-  It shows several features of the SAID, which can be selected via the 
-  (A,X and Y) button on the OSP32 board.
-
+  This is an official application (centered around the SAIDbasic board). 
+  This demo contains 4 apps: scripted animation (from EEPROM), running LED, 
+  (country) flags selected by pressing a button, and a dithering demo. 
+  It comes with a [user manual](extras/manuals/saidbasic.pptx).
+  
 - **eepromflasher** ([source](examples/eepromflasher))  
   One of the features of the `saidbasic` application is to play (LED animation)
   scripts from an EEPROM. There are EEPROMs on the OSP32 board, the SAIDbasic
-  board, and on stand-alone I2C EEPROM sticks. The eepromflasher application
+  board, and on stand-alone I2C EEPROM sticks. This `eepromflasher` application
   allows writing any script (stock or user developed) to any of these EEPROMs.
   The stock scripts are `rainbow`, `bouncingblock`, `colormix`, and `heartbeat`.
 
-
 - **osplink** ([source](examples/osplink))  
-  This application allows the PC (with a terminal like the Arduino Serial 
+  This is another official application. 
+  It allows the PC (with a terminal like the Arduino Serial 
   Monitor) to send and receive OSP telegrams, using serial-over-USB. 
-  There is also an experimental Python app for PC, that sends commands to the 
-  OSPlink application. Please find it in 
-  [`aocmd/python`](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/python).
+  There is  [documentation](https://github.com/ams-OSRAM/OSP_aocmd?tab=readme-ov-file#example-commands)
+  on using the command interpreter.
+  There is also an experimental Python app for PC
+  [`aocmd/python`](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/python), 
+  that sends commands to the `osplink` application.
 
 - **training** ([source](examples/training1), [source](examples/training2), [source](examples/training3))  
   These are exercises for the [training](extras/manuals/ArduinoOSP-Training.pptx).
@@ -168,6 +171,11 @@ which identifies the version of this "library".
 
 ## Version history _aotop_
 
+- **2024 November 29, 0.1.7**
+  - Version update: ESP32 from 3.0.5 to 3.0.7.
+  - Updated OSP system picture.
+  - Text corrections, improved images and extra links in `readme.md` and `gettingstarted.md`.
+  
 - **2024 November 8, 0.1.6**  
   - New image for evaluation kit; link added.
   - Added schematic for RGBI strip `OSIRE_E3731i_V2.3.pdf`.

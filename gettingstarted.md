@@ -52,12 +52,14 @@ on the OSP32 board with the _aolibs_.
 
 - Desktop/laptop with and install rights.  
   The developers of the _aolibs_ use Windows, but Linux or Mac should also work.
-- Internet connection.
-- OSP32 board (but some simple examples also work with just an ESP32).
-- One ERNI Minibridge cable and/or a terminator.
-- Optional some OSP demo boards (e.g. SAIDlooker, SAIDbasic).
-- The latter three come in the 
-  [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit)
+- Internet connection (to download IDE, compiler, libraries).
+- Target hardware, e.g. from the 
+  [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit),
+  like
+
+  - OSP32 board (but some simple examples also work with just an ESP32).
+  - One ERNI Minibridge cable and/or a terminator.
+  - Optional some OSP demo boards (e.g. RGBIstrip, SAIDlooker, SAIDbasic).
 
 
 ## Installation
@@ -65,6 +67,11 @@ on the OSP32 board with the _aolibs_.
 1. **Install Arduino IDE**  
    From the Arduino website, [download](https://www.arduino.cc/en/software) 
    and install Arduino IDE.
+   
+   Section [versions](#versions) lists which versions are tested to work.
+   We recommend to use the latest versions (for the Arduino IDE, and also for 
+   the board package mentioned below). Only when you have problems revert to
+   the versions listed there.
 
 2. **Install "board" (compiler)**  
    The ESP32S3 compiler (tools, runtime) needs to be installed in the Arduino IDE.
@@ -112,7 +119,7 @@ on the OSP32 board with the _aolibs_.
    telegrams to blink an RGB LED.
    
    Connect the OSP32 board to the PC: plug a USB cable
-   to the USB plug labeled **CMD** on the OSP32 PCB. 
+   to the USB plug labeled **CMD** on the OSP32 PCB ("UART" on the ESP PCB). 
    With one of the ERNI cables supplied with the evaluation kit, 
    connect the connector labeled OUT with the connector labeled IN,
    both on the OSP32 board right-hand side edge.
@@ -128,7 +135,7 @@ on the OSP32 board with the _aolibs_.
 
    Select the correct board (compiler) "ESP32S3 Dev Module" and correct 
    Serial port (here COM7), then (compile and) Upload, either via the button 
-   bar (the "play" triangle) or via Sketch > Upload.
+   bar (the arrow for Upload) or via Sketch > Upload.
    
    ![Compile settings](extras/compilesetting.png)
 
@@ -274,23 +281,37 @@ There are several sources of documentation:
 
   The `readme.md` of _aospi_ deserves reading, especially the section 
   ["System overview"](https://github.com/ams-OSRAM/OSP_aospi/tree/main?tab=readme-ov-file#System-overview).
+  
+  The `readme.md` of _aocmd_ explains the [command interpreter](https://github.com/ams-OSRAM/OSP_aocmd?tab=readme-ov-file#example-commands),
+  it is suitable for quick (OSP) experiments without programming.
 
 - **Examples**  
   Every _aolib_ comes with examples, find them via 
   "File > Examples > ams-OSRAM OSP xxx > ...".
   
-  This ranges from simple software examples (how to assert, how to compute CRC),
-  using the communications layer (tx, rx, timing), trying OSP features
-  (error behavior, grouping/multicat, i2c, otp, sync, topology), demonstrating
-  the command interpreter (adding your own command), middleware features
+  This ranges from simple software 
+  [examples](https://github.com/ams-OSRAM/OSP_aoresult/tree/main/examples) 
+  (how to assert, how to print errors, how to compute CRC), using the 
+  [communications](https://github.com/ams-OSRAM/OSP_aospi/tree/main/examples) 
+  layer (tx, rx, timing), trying 
+  [OSP features](https://github.com/ams-OSRAM/OSP_aoosp/tree/main/examples)
+  (error behavior, grouping/multicast, I2C, OTP, SYNC, topology, clustering, serial cast), demonstrating the 
+  [command interpreter](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/examples) 
+  (adding your own command), 
+  [middleware features](https://github.com/ams-OSRAM/OSP_aomw/tree/main/examples)
   (topology manager, I/O-expander driver, EEPROM driver, animation script),
-  using the OSP32 user interface elements (buttons, signaling LEDs, OLED),
-  reusable apps, and finally the "big" official top-level sketches 
-  (osplink, saidbasic).
+  using the OSP32 [user interface elements](https://github.com/ams-OSRAM/OSP_aoui32/tree/main/examples) 
+  (buttons, signaling LEDs, OLED), reusable 
+  [apps](https://github.com/ams-OSRAM/OSP_aoapps/tree/main/examples), 
+  and finally the official applications 
+  [saidbasic](examples/saidbasic) and [osplink](examples/osplink).
+
+  The `readme.md` of every library shortly describes each example.
 
 - **Training slides**  
   There are [slides](extras/manuals/ArduinoOSP-Training.pptx) for a training 
-  on _aolibs_ with the _Arduino OSP evaluation kit_.
+  on _aolibs_ with the _Arduino OSP evaluation kit_. They come with exercises, see the 
+  `training` examples in [aotop](https://github.com/ams-OSRAM/OSP_aotop/tree/main/examples).
 
 - **API documentation**  
   In every _cpp_ file (not in the header file), 
@@ -326,7 +347,7 @@ In general, take the latest greatest of all components. If there are
 problems, these are the versions the _aolib_ developers used and tested.
 
 - Arduino IDE 2.3.3.
-- Board manager "esp32 by Espressif Systems" 3.0.5.
+- Board manager "esp32 by Espressif Systems" 3.0.7.
 - No external libraries are used
 - As PCB the OSP32 v10 and SAIDbasic v7.
 
@@ -466,9 +487,9 @@ Here is how to try it.
    
    ![OSP32 with two USB cables](extras/dbg-osp32.jpg)
    
-   One is connected to **CMD** (UART), this is for Serial interaction 
-   (and upload). The other is connected to **DBG** (USB), this is for 
-   debugging using JTAG.
+   One is connected to **CMD** (labeled UART on the ESP board), 
+   this is for Serial interaction (and upload). The other is connected to 
+   **DBG** (labeled USB on the ESP board), this is for debugging using JTAG.
    
    ![CMD and DBG over USB](extras/dbg-usb2x.jpg)
    
@@ -529,10 +550,11 @@ Here is how to try it.
    
    The VARIABLES section shows the received bytes: `size` is 6 and
    `tele.data` contains A0 09 03 00 50 63.
-   We can pretty print that with `OSP_aospi\python\telegram`.
+   We can pretty print that with the python script `OSP_aospi\python\telegram`
+   on the PC (or with the command `osp fields A0 09 03 00 50 63` on the ESP).
    
    ```
-   (env) C:\repos\SAID-appl\trunk\5-software\arduinoosp\OSP_aospi\python\telegram>run A0 09 03 00 50 63
+   (env) ...\OSP_aospi\python\telegram>run A0 09 03 00 50 63
              +---------------+---------------+---------------+---------------+---------------+---------------+
    byteval   |      A0       |      09       |      03       |      00       |      50       |      63       |
    byteix    |0 0 0 0 0 0 0 0|1 1 1 1 1 1 1 1|2 2 2 2 2 2 2 2|3 3 3 3 3 3 3 3|4 4 4 4 4 4 4 4|5 5 5 5 5 5 5 5|
