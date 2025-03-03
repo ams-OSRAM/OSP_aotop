@@ -53,29 +53,32 @@ This section links to various resources.
 
 - Open System Protocol [website](https://ams-osram.com/technology/open-system-protocol).
 
-- Open System Protocol application note [OSP specification 1.0](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf).
- (todo:add with v1.1)
+- Open System Protocol application note [OSP specification](https://look.ams-osram.com/m/46e569ad50283dc5/original/OSIRE-E3731i-Open-System-Protocol.pdf)
+ ([previous](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf)).
 
 - OSP products
 
-  - RGBi [E3731i](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31) product page (OSP node with built-in RGB LEDs).
-  - SAID [AS1163](https://ams-osram.com/products/drivers/led-drivers/ams-as1163-automotive-9-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 9 external LEDs).
+  - RGBi [E3731i](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31) product page (OSP node with built-in RGB LEDs);
+  - SAID [AS1163](https://ams-osram.com/products/drivers/led-drivers/ams-as1163-automotive-9-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 9 external LEDs);
   - SAID [AS1163B](https://ams-osram.com/products/drivers/led-drivers/ams-as1163b-automotive-6-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 6 external LEDs).
 
-- [Getting started manual](gettingstarted.md) for the 
-  _aolibs_ with the _Arduino OSP evaluation kit_.
-  There are also [training slides](extras/manuals/ArduinoOSP-Training.pptx).
+- [Landing page](https://github.com/ams-OSRAM/OSP_aotop) for the _aolibs_ 
+  (Arduino OSP libraries from ams-OSRAM) on GitHub (this page).
 
-- [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit). 
-  The kit contains:
+  - [Getting started manual](gettingstarted.md);
 
-  - 1× OSP32 ([schematics](extras/schematics/OSP32_complete_v10.pdf)): root MCU board with an ESP32 (flashed with the [saidbasic](examples/saidbasic) demo), two SAIDs, and an I2C EEPROM (not flashed);
-  - 1× SAIDlooker ([schematics](extras/schematics/SAIDLooker_complete_v3.1.pdf)): demo board with 3 SAIDs;
+  - [Training slides](extras/manuals/).
+
+- [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit)
+  contains several boards, here are the (latest) [schematics](extras/schematics):
+
+  - 1× OSP32 ([schematics](extras/schematics/OSP32_complete_v11.pdf)): root MCU board with an ESP32 (flashed with the [saidbasic](examples/saidbasic) demo), two SAIDs, and an I2C EEPROM (not flashed);
+  - 1× SAIDbasic ([schematics](extras/schematics/SAIDbasic_complete_v8.pdf)): demo board with 3 SAID and 4 RGBIs, I/O-expander and I2C EEPROM flashed with [rainbow](examples/eepromflasher) script;
   - 1× RGBIstrip ([schematics](extras/schematics/OSIRE_E3731i_V2.3.pdf)): demo board with 20 RGBIs;
-  - 1× SAIDbasic ([schematics](extras/schematics/SAIDbasic_complete_v7.1.pdf)): demo board with 3 SAID and 4 RGBIs, I/O-expander and I2C EEPROM flashed with [rainbow](examples/eepromflasher) script;
-  - 2× terminator ([schematics](extras/schematics/Terminator_complete_v1.2.pdf));
+  - 1× SAIDlooker ([schematics](extras/schematics/SAIDLooker_complete_v4.pdf)): demo board with 3 SAIDs;
+  - 2× Terminator ([schematics](extras/schematics/Terminator_complete_v3.pdf));
+  - 2× EEPROM stick ([schematics](extras/schematics/I2CEEPROMstick-schematics_v2.pdf)): EEPROMs flashed with respectively the [bounceblock](examples/eepromflasher) and [colormix](examples/eepromflasher) script;
   - 2× CAN adapter ([schematics](extras/schematics/CANadapter_complete_v3.2.pdf));
-  - 2× EEPROM stick ([schematics](extras/schematics/I2CEEPROMstick-schematics_v1.0.pdf)): EEPROMs flashed with respectively the [bounceblock](examples/eepromflasher) and [colormix](examples/eepromflasher) script;
   - 4× ERNI cable ([supplier](https://www.distrelec.nl/en/ribbon-cable-27mm-cores-200mm-black-erni-839017/p/14362654)).
   
 - The [aolibs](https://github.com/orgs/ams-OSRAM/repositories?q=OSP_ao)
@@ -85,9 +88,9 @@ This section links to various resources.
   - [aoapps](https://github.com/ams-OSRAM/OSP_aoapps) library with _Reusable apps_;
   - [aoui32](https://github.com/ams-OSRAM/OSP_aoui32) library with _UI drivers for OSP32 board_;
   - [aomw](https://github.com/ams-OSRAM/OSP_aomw) library with _Middleware_;
-  - [aocmd](https://github.com/ams-OSRAM/OSP_aocmd) library with _Command interpreter_;
+  - [aocmd](https://github.com/ams-OSRAM/OSP_aocmd) library with a _Command interpreter_;
   - [aoosp](https://github.com/ams-OSRAM/OSP_aoosp) library with _Telegrams_;
-  - [aospi](https://github.com/ams-OSRAM/OSP_aospi) library with _2-wire SPI_;
+  - [aospi](https://github.com/ams-OSRAM/OSP_aospi) library with a _2-wire SPI_ driver;
   - [aoresult](https://github.com/ams-OSRAM/OSP_aoresult) library with _Result codes_.
 
 
@@ -129,7 +132,7 @@ It contains no (library) code; but it serves several other functions.
 ## Examples
 
 The examples in _aotop_ are not examples in the Arduino IDE sense 
-(explaining a feature), rather they are full-fledged (demo) applications
+(explaining a feature), rather they are full-fledged (demo) applications.
 You can find them in the Arduino IDE via 
 File > Examples > OSP ToplevelSketches aotop > ...
 
@@ -158,7 +161,7 @@ File > Examples > OSP ToplevelSketches aotop > ...
   that sends commands to the `osplink` application.
 
 - **training** ([source](examples/training1), [source](examples/training2), [source](examples/training3))  
-  These are exercises for the [training](extras/manuals/ArduinoOSP-Training.pptx).
+  These are exercises for the [training](extras/manuals/).
 
 
 ## API
@@ -170,6 +173,16 @@ which identifies the version of this "library".
 
 
 ## Version history _aotop_
+
+- **2025 March 3, 0.2.0**
+  - Added schematics of (new versions of) the various boards in the EVK.
+  - Improved description of USB settings in getting Started > Debugging.
+  - Added training slides.
+  - New picture in Getting Started for USB/CMD.
+  - Updated link to latest OSP specification.
+  - Switched to ESP32 board (compiler) 3.1.1 in Arduino IDE.
+  - Switched to Arduino IDE 2.3.4 (debugging supported).
+  - Fixed typos in `readme.md`.
 
 - **2024 November 29, 0.1.7**
   - Version update: ESP32 from 3.0.5 to 3.0.7.

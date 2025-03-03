@@ -87,7 +87,7 @@ on the OSP32 board with the _aolibs_.
    `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
    to "File > Preferences > Additional boards manager URLs"
  
-3. **Install driver for USB to UART bridge**  
+3. **Install driver for USB to UART bridge** (probably can be skipped)  
    The OSP32 boards use an _ESP32-S3-DevKitC-1_ with an USB to UART Bridge (CP2102N).
    Plug a USB cable from the PC to the ESP32S3 USB connector labeled **CMD** and 
    check the Windows device manager if the bridge is recognized.
@@ -346,9 +346,9 @@ There are several sources of documentation:
 In general, take the latest greatest of all components. If there are 
 problems, these are the versions the _aolib_ developers used and tested.
 
-- Arduino IDE 2.3.3.
-- Board manager "esp32 by Espressif Systems" 3.0.7.
-- No external libraries are used
+- Arduino IDE 2.3.4.
+- Board manager "esp32 by Espressif Systems" 3.1.1.
+- No external libraries are used.
 - As PCB the OSP32 v10 and SAIDbasic v7.
 
 In Arduino, we have _File > Preferences > Compiler warnings > All_ to have the
@@ -468,20 +468,10 @@ The prefix is also used as an (informal) short name.
 
 The Arduino IDE 2.x has an integrated debugger.
 The ESP32S3 on the OSP32 has an integrated USB JTAG probe.
-This means that, at least in theory, it suffices to connect
+This means that, it suffices to connect
 the PC running Arduino IDE with a USB cable to the ESP to 
 have full debugging capabilities.
-
-Unfortunately, at the moment of writing this Getting Started, debugging ESP32 
-is [broken](https://forum.arduino.cc/t/arduino-ide-2-3-0-is-now-available/1221189) 
-in the IDE.
-
-> Due to the unusual implementation of the debugging configuration used by the 
-> "esp32" platform to overcome limitations of the initial system, debugging 
-> support is temporarily lost for ESP32-based boards in Arduino IDE 2.3.0.
-
-However, the nightly builds of the IDE do seem to work already.
-Here is how to try it.
+Follow these steps.
 
 1. First connect the OSP32 board with **two** USB cables to the PC.
    
@@ -510,23 +500,22 @@ Here is how to try it.
    "USB JTAG/serial debug uint (Interface 2)" is mapped to "WinUSB". 
    We did not use Zadig.
    
-2. Download the [nightly build](https://www.arduino.cc/en/software#:~:text=Release%20Notes-,Nightly%20Builds,-Download%20a%20preview).
-   For this document, we used Windows 2.3.3 nightly from 2024 10 15.
-   
-   Unzip it (for a simple test just in Downloads), then double click the IDE 
-   executable `..\arduino-ide_nightly-20241015_Windows_64bit\Arduino IDE.exe`.
-   
-   Confirm the IDE version
-   
-   ![IDE version](extras/dbg-ide-version.png)
+2. Make sure you have IDE 2.3.4.
+
+   For a while, debugging was 
+   [broken](https://forum.arduino.cc/t/arduino-ide-2-3-0-is-now-available/1221189), 
+   So do not use versions below 2.3.4.
+
    
 3. Configure a project, e.g. open example `saidbasic.ino`.
 
    Make sure to have selected `ESP32S3 Dev Module` and COM7 for Serial.
    
-   We believe it is important to disable (in the `Tools` menu) all ESP32S3 
-   USB settings (CDC, DFU, MSC) except the TJAG adapter. 
-   Also note we have Upload Mode UART0, and USB Mode Hardware CDC and JTAG.
+   We believe that for debugging only setting needs to be changed in the `Tools` menu.
+   _TJAG adapter_ needs to be set to "Integrated USB JTAG"; all other all 
+   ESP32S3 USB settings (CDC, DFU, MSC) can stay at "Disabled". 
+   Also note we have (debugging or not) _Upload Mode_ at "UART0 / Hardware CDC", 
+   and _USB Mode_ at "Hardware CDC and JTAG".
    
    ![Project USB settings](extras/dbg-usb-jtag.png)
    
