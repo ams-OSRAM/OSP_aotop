@@ -1,6 +1,6 @@
 // aotop.h - empty library
 /*****************************************************************************
- * Copyright 2024 by ams OSRAM AG                                            *
+ * Copyright 2024,2025 by ams OSRAM AG                                       *
  * All rights are reserved.                                                  *
  *                                                                           *
  * IMPORTANT - PLEASE READ CAREFULLY BEFORE COPYING, INSTALLING OR USING     *
@@ -23,7 +23,7 @@
 
 
 // Identifies lib version
-#define AOTOP_VERSION "0.2.0"
+#define AOTOP_VERSION "0.3.0"
 
 // This lib does not contain reusable code, only examples and documentation.
 

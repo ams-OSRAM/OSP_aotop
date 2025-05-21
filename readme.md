@@ -41,10 +41,12 @@ Use the Library Manager of the Arduino IDE to search for _aotop_
 ("OSP ToplevelSketches aotop"), install it and all others will 
 also be installed.
 
-
-There is a dedicated [Getting started manual](gettingstarted.md).
-It describes what hard and software is needed (the evaluation kit and 
-the libraries), and how to turn on the first RGBs.
+There is a dedicated [Getting started manual](gettingstarted.md) 
+for the evaluation kit. It describes what hard and software 
+components are needed (from the evaluation kit and the libraries), 
+and how to turn on  the first RGBs. Those who want to bring up 
+their own hardware, we suggest to have a look at 
+[aospi_bringup](https://github.com/ams-OSRAM/OSP_aospi/tree/main/examples/aospi_bringup).
 
 
 ## Links
@@ -77,7 +79,7 @@ This section links to various resources.
   - 1× RGBIstrip ([schematics](extras/schematics/OSIRE_E3731i_V2.3.pdf)): demo board with 20 RGBIs;
   - 1× SAIDlooker ([schematics](extras/schematics/SAIDLooker_complete_v4.pdf)): demo board with 3 SAIDs;
   - 2× Terminator ([schematics](extras/schematics/Terminator_complete_v3.pdf));
-  - 2× EEPROM stick ([schematics](extras/schematics/I2CEEPROMstick-schematics_v2.pdf)): EEPROMs flashed with respectively the [bounceblock](examples/eepromflasher) and [colormix](examples/eepromflasher) script;
+  - 2× EEPROM stick ([schematics](extras/schematics/I2CEEPROMstick-schematics_v2.pdf)): EEPROMs flashed with respectively the [bouncingblock](examples/eepromflasher) and [colormix](examples/eepromflasher) script;
   - 2× CAN adapter ([schematics](extras/schematics/CANadapter_complete_v3.2.pdf));
   - 4× ERNI cable ([supplier](https://www.distrelec.nl/en/ribbon-cable-27mm-cores-200mm-black-erni-839017/p/14362654)).
   
@@ -141,15 +143,8 @@ File > Examples > OSP ToplevelSketches aotop > ...
   This is an official application (centered around the SAIDbasic board). 
   This demo contains 4 apps: scripted animation (from EEPROM), running LED, 
   (country) flags selected by pressing a button, and a dithering demo. 
-  It comes with a [user manual](extras/manuals/saidbasic.pptx).
+  It comes with a [user manual](extras/manuals/saidbasic.pdf).
   
-- **eepromflasher** ([source](examples/eepromflasher))  
-  One of the features of the `saidbasic` application is to play (LED animation)
-  scripts from an EEPROM. There are EEPROMs on the OSP32 board, the SAIDbasic
-  board, and on stand-alone I2C EEPROM sticks. This `eepromflasher` application
-  allows writing any script (stock or user developed) to any of these EEPROMs.
-  The stock scripts are `rainbow`, `bouncingblock`, `colormix`, and `heartbeat`.
-
 - **osplink** ([source](examples/osplink))  
   This is another official application. 
   It allows the PC (with a terminal like the Arduino Serial 
@@ -159,6 +154,18 @@ File > Examples > OSP ToplevelSketches aotop > ...
   There is also an experimental Python app for PC
   [`aocmd/python`](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/python), 
   that sends commands to the `osplink` application.
+
+- **evktester** ([source](examples/evktester))  
+  This application helps in testing the hardware components in the EVK.
+  It requires (human) operator support (via OLED and buttons).
+  A test report is printed to Serial.
+  
+- **eepromflasher** ([source](examples/eepromflasher))  
+  One of the features of the `saidbasic` application is to play (LED animation)
+  scripts from an EEPROM. There are EEPROMs on the OSP32 board, the SAIDbasic
+  board, and on stand-alone I2C EEPROM sticks. This `eepromflasher` application
+  allows writing any script (stock or user developed) to any of these EEPROMs.
+  The stock scripts are `rainbow`, `bouncingblock`, `colormix`, and `heartbeat`.
 
 - **training** ([source](examples/training1), [source](examples/training2), [source](examples/training3))  
   These are exercises for the [training](extras/manuals/).
@@ -173,6 +180,21 @@ which identifies the version of this "library".
 
 
 ## Version history _aotop_
+
+- **2025 May 21, 0.3.0**
+  - Added `evktester.ino`.
+  - Have prebuilt binaries for saidbasic and evktester.
+  - Renamed training slides.
+  - Updated training (mostly appendix 2 uniform colors) to match new module `aomw_color`.
+  - Added webflash to the manuals.
+  - Documented SAID versions 1.0 and 1.1 (with photos).
+  - Several text updates in `gettingstarted.md`.
+  - Added details to [SAIDbasic user manual](extras/manuals/saidbasic.pdf)
+  - Added reference to `aospi_bringup`.
+  - Switched to latest latest Arduino IDE (2.3.6) and the latest ESP32 board package (3.2.0) - applied a patch to `aospi/src/slave`.
+  - Corrected pptx links to pdf.
+  - Textual updates in training 3 (OTP burn).
+  - Fixed link in `extras/manuals` for `saidbasic.ino`.
 
 - **2025 March 3, 0.2.0**
   - Added schematics of (new versions of) the various boards in the EVK.

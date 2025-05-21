@@ -14,7 +14,8 @@ depicted below.
 
 ![Arduino OSP evaluation kit](extras/evalkit.jpg)
 
-The kit consists of a _Root MCU board_, some OSP _demo boards_, and 
+The kit consists of a _Root MCU board_ (blue), some OSP _demo boards_ 
+(bigger white ones), and 
 some parts for "wiring" them up. The OSP demo boards are typically strips 
 with some RGBIs, some SAIDs, and/or some I2C devices. One example 
 is the _SAIDlooker_ board. 
@@ -50,9 +51,9 @@ drive LEDs on one of the demo boards.
 The following items are needed to get started with software development
 on the OSP32 board with the _aolibs_.
 
-- Desktop/laptop with and install rights.  
+- Desktop/laptop with install rights.  
   The developers of the _aolibs_ use Windows, but Linux or Mac should also work.
-- Internet connection (to download IDE, compiler, libraries).
+- Internet connection (to download the IDE, compilers, libraries).
 - Target hardware, e.g. from the 
   [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit),
   like
@@ -88,14 +89,14 @@ on the OSP32 board with the _aolibs_.
    to "File > Preferences > Additional boards manager URLs"
  
 3. **Install driver for USB to UART bridge** (probably can be skipped)  
-   The OSP32 boards use an _ESP32-S3-DevKitC-1_ with an USB to UART Bridge (CP2102N).
+   The OSP32 boards use an _ESP32-S3-DevKitC-1_ with an USB to UART bridge (CP2102N).
    Plug a USB cable from the PC to the ESP32S3 USB connector labeled **CMD** and 
    check the Windows device manager if the bridge is recognized.
  
    ![Example](extras/vcom-driver.png)
  
-   Normally, the board manager also installs drivers for various bridges. 
-   If missing, download and install it from 
+   Normally, the board manager also installs drivers for various 
+   USB to UART bridges. If missing, download and install it from 
    [Silabs](https://www.silabs.com/interface/usb-bridges/usbxpress/device.cp2102n-gqfn28).
  
 4. **Install aolibs**  
@@ -109,7 +110,7 @@ on the OSP32 board with the _aolibs_.
    
    ![Arduino library manager](extras/librarymanager.png)
  
-   As an (not recommended) alternative, get all the _aolibs_ manually, 
+   As a not recommended alternative, get all the _aolibs_ manually, 
    e.g. download them from [GitHub](https://github.com/ams-OSRAM/OSP_aotop),
    and copy them into the Arduino `libraries` directory
    (e.g. to `C:\Users\John\Documents\Arduino\libraries\OSP_aotop`).
@@ -135,19 +136,21 @@ on the OSP32 board with the _aolibs_.
 
    Select the correct board (compiler) "ESP32S3 Dev Module" and correct 
    Serial port (here COM7), then (compile and) Upload, either via the button 
-   bar (the arrow for Upload) or via Sketch > Upload.
+   bar (the arrow for Upload) or via Sketch > Upload. The compilation and
+   uploading both take some time.
    
    ![Compile settings](extras/compilesetting.png)
 
    Watch the serial output by opening the serial monitor, either via the
    button bar (magnifying glass), or via Tools > Serial Monitor. 
-   Ensure the Serial Monitor baud rate is set to 115200.
+   Ensure the Serial Monitor baud rate is set to 115200. The firmware
+   prints the steps it takes.
  
    ![Compile settings](extras/serial-monitor.png)
    
-   What you should see  is that the first RGB (L1.0) of SAID OUT (on the 
-   OSP32 board) blinks bright white and dim white. First in BiDir mode 
-   (so direction mux led is green) then in loop (led is orange).
+   What you should see  is that the first RGB (L1.0 aka OUT0) of SAID OUT 
+   (on the OSP32 board) blinks bright white and dim white. First in BiDir 
+   mode (so direction mux led is green) then in loop (led is orange).
    Then repeats.
 
 
@@ -162,7 +165,7 @@ scripted animation (script in EEPROM), country flags selected by
 pressing a button, and showing the effect of dithering. 
 
 Use the A button to select app after app.
-There is a small [user manual](extras/manuals/saidbasic.pptx)
+There is a small [user manual](extras/manuals/saidbasic.pdf)
 available for the saidbasic demo.
 
 
@@ -268,7 +271,7 @@ There is an introduction about the command interpreter in its library
 
 There are several sources of documentation:
 
-- **Readme**  
+- **Readme's**  
   Every _aolib_ comes with documentation in the form of a `readme.md` 
   in its root directory, e.g. `arduinoosp\aolibs\aospi\readme.md`.
   
@@ -287,19 +290,20 @@ There are several sources of documentation:
 
 - **Examples**  
   Every _aolib_ comes with examples, find them via 
-  "File > Examples > ams-OSRAM OSP xxx > ...".
+  "File > Examples > OSP XxxxXxx aoxxx > ...".
   
-  This ranges from simple software 
+  This ranges from simple software-only
   [examples](https://github.com/ams-OSRAM/OSP_aoresult/tree/main/examples) 
   (how to assert, how to print errors, how to compute CRC), using the 
   [communications](https://github.com/ams-OSRAM/OSP_aospi/tree/main/examples) 
   layer (tx, rx, timing), trying 
   [OSP features](https://github.com/ams-OSRAM/OSP_aoosp/tree/main/examples)
-  (error behavior, grouping/multicast, I2C, OTP, SYNC, topology, clustering, serial cast), demonstrating the 
+  (error behavior, grouping/multicast, I2C, OTP, SYNC, topology, clustering, serial cast), 
+  demonstrating the 
   [command interpreter](https://github.com/ams-OSRAM/OSP_aocmd/tree/main/examples) 
   (adding your own command), 
   [middleware features](https://github.com/ams-OSRAM/OSP_aomw/tree/main/examples)
-  (topology manager, I/O-expander driver, EEPROM driver, animation script),
+  (topology manager, color management, I/O-expander driver, EEPROM driver, animation script),
   using the OSP32 [user interface elements](https://github.com/ams-OSRAM/OSP_aoui32/tree/main/examples) 
   (buttons, signaling LEDs, OLED), reusable 
   [apps](https://github.com/ams-OSRAM/OSP_aoapps/tree/main/examples), 
@@ -309,7 +313,7 @@ There are several sources of documentation:
   The `readme.md` of every library shortly describes each example.
 
 - **Training slides**  
-  There are [slides](extras/manuals/ArduinoOSP-Training.pptx) for a training 
+  There are [slides](extras/manuals) for a training 
   on _aolibs_ with the _Arduino OSP evaluation kit_. They come with exercises, see the 
   `training` examples in [aotop](https://github.com/ams-OSRAM/OSP_aotop/tree/main/examples).
 
@@ -344,12 +348,16 @@ There are several sources of documentation:
 ## Versions
 
 In general, take the latest greatest of all components. If there are 
-problems, these are the versions the _aolib_ developers used and tested.
+problems, these are the versions the _aolib_ developers used and tested
+(2025 March 28).
 
-- Arduino IDE 2.3.4.
-- Board manager "esp32 by Espressif Systems" 3.1.1.
+- Arduino IDE 2.3.6.
+- Board manager "esp32 by Espressif Systems" 3.2.0.
 - No external libraries are used.
-- As PCB the OSP32 v10 and SAIDbasic v7.
+- As PCB the OSP32 v10, SAIDbasic v7 and SAIDlooker v3.   
+  Some SAIDs on the older boards are the v1.0 engineering samples 
+  instead of the v1.1 production samples; see 
+  [saidversions](extras/manuals/saidversions).
 
 In Arduino, we have _File > Preferences > Compiler warnings > All_ to have the
 highest checking level during development. At the moment of writing this
@@ -366,9 +374,10 @@ Depending on your needs pick a subset from the following set.
   codes used by the other libraries; it also implements a simple `assert`.
   
 - `aospi`  
-  This library implements the 2-wire SPI communication needed to send 
-  telegrams to an OSP chain and receive responses from it. Sending and 
-  receiving is on the level of byte arrays.
+  This library implements the 2-wire SPI communication ("MCU mode, type B")
+  needed to send telegrams to an OSP chain and receive responses from it. 
+  Sending and receiving is on the level of byte arrays (there is support
+  for "MCU mode type A" also).
   
   The application is responsible to ensure the buffer contains the OSP 
   preamble, the destination address, the payload size, the telegram ID, and 
@@ -376,9 +385,9 @@ Depending on your needs pick a subset from the following set.
   the OSP standard.
   
   The OSP32 board has a mux to chose between two OSP configurations 
-  ("loop" and "bidir"). This library also has function to control that mux.
+  ("loop" and "bidir"). This library also has functions to control that mux.
   
-  If you use a different protocol (e.g. 1-wire SPI), a different MCU 
+  If you use a different protocol (e.g. 1-wire Manchester), a different MCU 
   (e.g. NXP S32K144 instead of ESP32S3) or less flexibility (e.g. no 
   BiDir/Loop with auto select), this library would be replaced.
 
@@ -390,7 +399,7 @@ Depending on your needs pick a subset from the following set.
   
   The library also contains some "macros": functions that send multiple 
   telegrams implementing a higher level function like an I2C read 
-  transaction to an i2C device connected to a SAID.
+  transaction to an I2C device connected to a SAID.
   
   Any application for OSP is expected to use the libraries `aoosp` 
   on top of `aospi` on top of `aoresult`.
@@ -403,7 +412,7 @@ Depending on your needs pick a subset from the following set.
   received.
   
   This library is useful in the evaluation kit because it offers human
-  interaction either direct typing in a terminal, or via a PC app that
+  interaction, either by direct typing in a terminal, or via a PC app that
   gives commands via serial-over-USB. Production firmware images are 
   not expected to use `aocmd`.
 
@@ -413,7 +422,12 @@ Depending on your needs pick a subset from the following set.
   making an abstraction of (an array of) RGB triplets irrespective if 
   they are an RGBI, or on a channel of a SAID.
   
-  The library also contains a driver for an I2C EEPROM and an I2C 
+  The library also contains a functions for color accurate applications.
+  It uses color calibration values for RGB instances to compute the mixing
+  ratios (PWM values for the three LEDs) in order to realize a specified 
+  color, even over varying temperature.
+  
+  The library also contains a driver for an I2C EEPROM and for an I2C 
   I/O-expander; both these devices are used as example I2C devices connected 
   to a SAID with I2C gateway enabled.
   
@@ -426,7 +440,7 @@ Depending on your needs pick a subset from the following set.
 - `aoui32` 
   This library contains drivers for the UI elements on the OSP32 board: 
   the A, X and Y button, the red and green signaling LEDs and the OLED screen. 
-  It does not depend on any other of the other libraries.
+  It does not depend on any of the other libraries.
 
 - `aoapps`  
   This library contains various apps. A top-level Arduino sketch can 
@@ -468,8 +482,8 @@ The prefix is also used as an (informal) short name.
 
 The Arduino IDE 2.x has an integrated debugger.
 The ESP32S3 on the OSP32 has an integrated USB JTAG probe.
-This means that, it suffices to connect
-the PC running Arduino IDE with a USB cable to the ESP to 
+This means that it suffices to connect
+the PC (running Arduino IDE) with a USB cable to the ESP to 
 have full debugging capabilities.
 Follow these steps.
 
@@ -500,7 +514,7 @@ Follow these steps.
    "USB JTAG/serial debug uint (Interface 2)" is mapped to "WinUSB". 
    We did not use Zadig.
    
-2. Make sure you have IDE 2.3.4.
+2. Make sure you have (at least) IDE 2.3.4.
 
    For a while, debugging was 
    [broken](https://forum.arduino.cc/t/arduino-ide-2-3-0-is-now-available/1221189), 
@@ -511,17 +525,19 @@ Follow these steps.
 
    Make sure to have selected `ESP32S3 Dev Module` and COM7 for Serial.
    
-   We believe that for debugging only setting needs to be changed in the `Tools` menu.
-   _TJAG adapter_ needs to be set to "Integrated USB JTAG"; all other all 
-   ESP32S3 USB settings (CDC, DFU, MSC) can stay at "Disabled". 
-   Also note we have (debugging or not) _Upload Mode_ at "UART0 / Hardware CDC", 
-   and _USB Mode_ at "Hardware CDC and JTAG".
+   We believe that for debugging only _one_ setting needs to be 
+   changed in the `Tools` menu: _TJAG adapter_ needs to be set to 
+   "Integrated USB JTAG"; all other all ESP32S3 USB settings 
+   (CDC, DFU, MSC) can stay at "Disabled". 
+   Also note we have (debugging or not) _Upload Mode_ at 
+   "UART0 / Hardware CDC", and _USB Mode_ at "Hardware CDC and JTAG".
    
    ![Project USB settings](extras/dbg-usb-jtag.png)
    
-   Although not necessary, it makes debugging easier since code is less 
-   optimized, it is suggested to enable Optimize for Debugging in the 
-   `Sketch` menu. 
+   Although not necessary, it is suggested to enable Optimize for 
+   Debugging in the `Sketch` menu. This makes debugging easier since 
+   code is less optimized, but the code is also likely to be bigger 
+   and slower.
    
    ![Optimize for Debugging](extras/dbg-cc-option.png)
    

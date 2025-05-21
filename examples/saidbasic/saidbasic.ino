@@ -1,6 +1,6 @@
 // saidbasic.ino - the demo application for the SAIDbasic board
 /*****************************************************************************
- * Copyright 2024 by ams OSRAM AG                                            *
+ * Copyright 2024,2025 by ams OSRAM AG                                       *
  * All rights are reserved.                                                  *
  *                                                                           *
  * IMPORTANT - PLEASE READ CAREFULLY BEFORE COPYING, INSTALLING OR USING     *
@@ -45,7 +45,7 @@ An option is to make a boot.cmd file (command "file record") with eg
   apps conf swflag set   dutch europe italy mali
   topo dim 200
 
-See also user manual OSP_aotop\extras\manuals\saidbasic.pptx
+See also user manual OSP_aotop\extras\manuals\saidbasic.pdf
 
 HARDWARE
 The demo should run on the OSP32 board, connected to teh SAIDbasic board. 
