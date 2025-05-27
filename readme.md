@@ -58,18 +58,37 @@ This section links to various resources.
 - Open System Protocol application note [OSP specification](https://look.ams-osram.com/m/46e569ad50283dc5/original/OSIRE-E3731i-Open-System-Protocol.pdf)
  ([previous](https://look.ams-osram.com/m/36bafc7159df087a/original/OSIRE-E3731i-Open-System-Protocol-1-0.pdf)).
 
-- OSP products
-
-  - RGBi [E3731i](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31) product page (OSP node with built-in RGB LEDs);
-  - SAID [AS1163](https://ams-osram.com/products/drivers/led-drivers/ams-as1163-automotive-9-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 9 external LEDs);
-  - SAID [AS1163B](https://ams-osram.com/products/drivers/led-drivers/ams-as1163b-automotive-6-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 6 external LEDs).
-
 - [Landing page](https://github.com/ams-OSRAM/OSP_aotop) for the _aolibs_ 
   (Arduino OSP libraries from ams-OSRAM) on GitHub (this page).
 
   - [Getting started manual](gettingstarted.md);
 
-  - [Training slides](extras/manuals/).
+  - [Training slides and videos](extras/manuals/).
+
+- The [aolibs](https://github.com/orgs/ams-OSRAM/repositories?q=OSP_ao)
+  (on the ams OSRAM GitHub [site](https://github.com/ams-OSRAM/)): 
+
+  - [aotop](https://github.com/ams-OSRAM/OSP_aotop) (this repo) with _Top level sketches_;
+  - [aoapps](https://github.com/ams-OSRAM/OSP_aoapps) library with _Reusable apps_;
+  - [aoui32](https://github.com/ams-OSRAM/OSP_aoui32) library with _UI drivers for OSP32 board_;
+  - [aomw](https://github.com/ams-OSRAM/OSP_aomw) library with _Middleware_;
+  - [aocmd](https://github.com/ams-OSRAM/OSP_aocmd) library with a _Command interpreter_;
+  - [aoosp](https://github.com/ams-OSRAM/OSP_aoosp) library with _Telegrams_;
+  - [aospi](https://github.com/ams-OSRAM/OSP_aospi) library with a _2-wire SPI_ driver;
+  - [aoresult](https://github.com/ams-OSRAM/OSP_aoresult) library with _Result codes_.
+
+- Related products
+  - OSP
+    - RGBi [E3731i](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3731i-krtbi-d2lm31-31) product page (OSP node with built-in RGB LEDs);
+    - SAID [AS1163](https://ams-osram.com/products/drivers/led-drivers/ams-as1163-automotive-9-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 9 external LEDs);
+    - SAID [AS1163B](https://ams-osram.com/products/drivers/led-drivers/ams-as1163b-automotive-6-channel-stand-alone-intelligent-led-driver-ic) product page (OSP node with drivers for 6 external LEDs).
+  - LEDs in the EVK
+    - Top looker [E3323](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e3323-krtbdwlm31-32) product page (automotive ambient RGB);
+    - Side looker [E5515](https://ams-osram.com/products/leds/multi-color-leds/osram-osire-e5515-krtbaelps1-32) product page (automotive interior RGB).
+  - Sensors in the EVK
+    - Temperature sensor [AS6212](https://ams-osram.com/products/sensor-solutions/temperature-sensors/ams-as621x-temperature-sensors) product page (high accuracy digital I2C sensor);
+    - Light sensor [SFH5721](https://ams-osram.com/products/sensor-solutions/ambient-light-color-spectral-proximity-sensors/osram-chip-led-sfh-5721) product page (ambient light and infrared I2C sensor);
+    - Position sensor [AS5600](https://ams-osram.com/products/sensor-solutions/position-sensors/ams-as5600-position-sensor) product page (digital magnetic rotary position sensor).
 
 - [Arduino OSP evaluation kit](https://ams-osram.com/products/boards-kits-accessories/kits/ams-as1163-qf-evm-kt-osp-evaluation-kit)
   contains several boards, here are the (latest) [schematics](extras/schematics):
@@ -83,18 +102,6 @@ This section links to various resources.
   - 2× CAN adapter ([schematics](extras/schematics/CANadapter_complete_v3.2.pdf));
   - 4× ERNI cable ([supplier](https://www.distrelec.nl/en/ribbon-cable-27mm-cores-200mm-black-erni-839017/p/14362654)).
   
-- The [aolibs](https://github.com/orgs/ams-OSRAM/repositories?q=OSP_ao)
-  (on the ams OSRAM GitHub [site](https://github.com/ams-OSRAM/)): 
-
-  - [aotop](https://github.com/ams-OSRAM/OSP_aotop) (this repo) with _Top level sketches_;
-  - [aoapps](https://github.com/ams-OSRAM/OSP_aoapps) library with _Reusable apps_;
-  - [aoui32](https://github.com/ams-OSRAM/OSP_aoui32) library with _UI drivers for OSP32 board_;
-  - [aomw](https://github.com/ams-OSRAM/OSP_aomw) library with _Middleware_;
-  - [aocmd](https://github.com/ams-OSRAM/OSP_aocmd) library with a _Command interpreter_;
-  - [aoosp](https://github.com/ams-OSRAM/OSP_aoosp) library with _Telegrams_;
-  - [aospi](https://github.com/ams-OSRAM/OSP_aospi) library with a _2-wire SPI_ driver;
-  - [aoresult](https://github.com/ams-OSRAM/OSP_aoresult) library with _Result codes_.
-
 
 (end of top-level documentation)
 
@@ -181,6 +188,11 @@ which identifies the version of this "library".
 
 ## Version history _aotop_
 
+- **2025 May 27, 0.4.0**
+  - Added ref to merged bins.
+  - Added links to products used in EVK.
+  - Added links to training videos.
+  
 - **2025 May 21, 0.3.0**
   - Added `evktester.ino`.
   - Have prebuilt binaries for saidbasic and evktester.

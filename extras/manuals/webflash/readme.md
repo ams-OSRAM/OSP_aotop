@@ -63,7 +63,9 @@ For web flash you would need [saidbasic.ino.merged.bin](https://github.com/ams-O
   We ignore most of them; we need `Choose File` and `Program`.
   
 - After successful connection (0), click `Choose File` (1) and browse to 
-  an `xxx.ino.merged.bin` like [saidbasic.ino.merged.bin](https://github.com/ams-OSRAM/OSP_aotop/tree/main/examples/saidbasic/build/esp32.esp32.esp32s3/saidbasic.ino.merged.bin)
+  a so-called _merged_ bin file (`xxx.ino.merged.bin`).
+  You find them with some of the examples, like [saidbasic.ino.merged.bin](https://github.com/ams-OSRAM/OSP_aotop/tree/main/examples/saidbasic/build/esp32.esp32.esp32s3/saidbasic.ino.merged.bin)
+  but they are also published as _Assets_ with a [release](https://github.com/ams-OSRAM/OSP_aotop/releases).
 
   ![Web flash config](webflash-3config.png)
  
